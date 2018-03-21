@@ -2,35 +2,37 @@
 #define SNAKE_H
 
 #include <SFML/Graphics.hpp>
+#include <string>
 
-enum class Direction
+enum class EDirection
 {
-    North,
-    South,
-    East,
-    West
+    eNorth,
+    eSouth,
+    eEast,
+    eWest
 };
 
 
 class Snake
 {
     public:
-        Snake(bool playerControlled);
+        Snake(std::string name);
         virtual ~Snake();
         void DrawSnake(sf::RenderWindow &window);
         void SetDirection(sf::Event event);
-        void SnakeMove();
-        sf::CircleShape snakeShape{ 10.f };
+        void Move();
+        sf::Vector2f GetPosition();
+        sf::CircleShape m_snakeHead{ 10.f };
 
     protected:
 
     private:
-        Direction currDirection = Direction::East;
-        Direction nextDirection = Direction:: East;
-        int movementSpeed { 2 };
-        bool playerControlled;
+        EDirection m_currDirection = EDirection::eEast;
+        int m_movement = m_snakeHead.getRadius() * 2;
+        bool m_playerControlled;
+        std::string m_name;
 
-        sf::Vector2f position{30, 30};
+        sf::Vector2f m_position;
 };
 
 #endif // SNAKE_H

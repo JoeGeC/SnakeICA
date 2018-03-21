@@ -60,6 +60,10 @@
 			<Add option="-std=c++1y" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Collectable.cpp" />
+		<Unit filename="Collectable.h" />
+		<Unit filename="Game.cpp" />
+		<Unit filename="Game.h" />
 		<Unit filename="Snake.cpp" />
 		<Unit filename="Snake.h" />
 		<Unit filename="main.cpp" />
