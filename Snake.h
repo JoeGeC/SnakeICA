@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <list>
 
 enum class EDirection
 {
@@ -22,7 +23,10 @@ class Snake
         void SetDirection(sf::Event event);
         void Move();
         sf::Vector2f GetPosition();
+        std::list<sf::Vector2f> m_snakeSegments;
         sf::CircleShape m_snakeHead{ 10.f };
+        int m_growAmount { 0 };
+        bool m_isAlive { true };
 
     protected:
 
@@ -31,6 +35,7 @@ class Snake
         int m_movement = m_snakeHead.getRadius() * 2;
         bool m_playerControlled;
         std::string m_name;
+
 
         sf::Vector2f m_position;
 };

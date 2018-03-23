@@ -25,10 +25,12 @@ bool Collectable::IsActive()
     return m_active;
 }
 
-void Collectable::Collision(Snake s)
+int Collectable::Collision(Snake& s)
 {
     if(m_position == s.GetPosition())
     {
         m_active = false;
+        s.m_growAmount += m_growAmount;
+        return m_score;
     }
 }

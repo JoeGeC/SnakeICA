@@ -359,29 +359,32 @@
 1521644616 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/main.cpp
 	"Game.h"
 
-1521654135 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Snake.h
+1521824625 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Snake.h
 	<SFML/Graphics.hpp>
 	<string>
+	<list>
 
-1521651970 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Snake.cpp
+1521826408 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Snake.cpp
 	"Snake.h"
 	<SFML/Graphics.hpp>
 
-1521648537 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Game.h
+1521826835 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<cstdlib>
 	"Snake.h"
 	"Collectable.h"
+	<string>
 
-1521654052 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Game.cpp
+1521827250 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Game.cpp
 	"Game.h"
+	<string>
 
-1521653438 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Collectable.h
+1521825717 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Collectable.h
 	<SFML/Graphics.hpp>
 	"Snake.h"
 
-1521653402 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Collectable.cpp
+1521825717 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Collectable.cpp
 	"Collectable.h"
 	"Snake.h"
 

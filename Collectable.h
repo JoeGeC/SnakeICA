@@ -10,18 +10,16 @@ class Collectable
         virtual ~Collectable();
         void DrawCollectable(sf::RenderWindow &window);
         bool IsActive();
-        bool m_active {false};
         sf::Vector2f m_position;
-        void Collision(Snake s);
+        int Collision(Snake& s);
+        bool m_active {false};
 
     protected:
 
     private:
-        int m_score;
+        int m_score { 10 };
+        int m_growAmount { 1 };
         sf::CircleShape m_colShape{ 10.f };
-
-
-
 };
 
 #endif // COLLECTABLE_H

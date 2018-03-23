@@ -3,8 +3,9 @@
 
 Snake::Snake(std::string name) : m_name(name)
 {
-    m_position.x = std::ceil((rand() % 400 + 400) / 20) * 20;
-    m_position.y = std::ceil((rand() % 200 + 200) / 20) * 20;
+    m_position.x = std::ceil((rand() % 400 + 80) / 20) * 20;
+    m_position.y = std::ceil((rand() % 300 + 80) / 20) * 20;
+    m_snakeSegments.push_front(m_position);
 }
 
 Snake::~Snake()
@@ -14,9 +15,14 @@ Snake::~Snake()
 
 void Snake::DrawSnake(sf::RenderWindow &window)
 {
-    window.draw(m_snakeHead);
-    m_snakeHead.setPosition(m_position);
-
+    for(auto& s : m_snakeSegments)
+    {
+        if(m_isAlive)
+        {
+            m_snakeHead.setPosition(s);
+            window.draw(m_snakeHead);
+        }
+    }
 }
 
 void Snake::SetDirection(sf::Event event)
@@ -63,6 +69,13 @@ void Snake::Move()
         default:
             break;
     }
+
+    m_snakeSegments.push_front(m_position);
+
+    if (m_growAmount > 0)
+        m_growAmount--;
+    else
+        m_snakeSegments.pop_back();
 
     if(m_position.x > 800 - m_movement)
         m_position.x = 0;
