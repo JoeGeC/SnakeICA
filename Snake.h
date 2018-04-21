@@ -26,6 +26,7 @@ class Snake
         std::list<sf::Vector2f> m_snakeSegments;
         sf::CircleShape m_snakeHead{ 10.f };
         int m_growAmount { 0 };
+        int m_score { 0 };
         bool m_isAlive { true };
         bool CheckCollision(const Snake& other) const;
         bool CheckSelfCollision();

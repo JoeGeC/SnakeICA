@@ -22,7 +22,7 @@ class Game
     private:
         int m_screenWidth {800};
         int m_screenHeight {600};
-        int m_movementSpeed {100};
+        int m_movementSpeed {200};
         int m_score { 0 };
 
         bool m_gameOver { false };
@@ -30,6 +30,8 @@ class Game
         sf::Font m_font;
         sf::Text m_scoreText{ "Score " + std::to_string(m_score), m_font, 20 };
         sf::Text m_gameOverText{ "GAME OVER", m_font, 50 };
+
+        void DrawScoreText();
 
         std::vector<Snake> m_snakes;
         Collectable m_collectables[5];

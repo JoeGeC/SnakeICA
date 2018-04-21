@@ -67,8 +67,22 @@ void Game::CollectableCollision()
             c.DrawCollectable(m_window);
 
         for(Snake& s : m_snakes)
-            m_score += c.Collision(s);
+            s.m_score += c.Collision(s);
     }
+}
+
+void Game::DrawScoreText()
+{
+    int i = 0;
+    for(Snake& s : m_snakes)
+    {
+        //Draw score text
+        m_window.draw(m_scoreText);
+        m_scoreText.setString("Score " + std::to_string(s.m_score));
+        m_scoreText.setPosition(m_borderSize, 10 + (i * 10));
+        i++;
+    }
+
 }
 
 void Game::Run()
@@ -81,6 +95,7 @@ void Game::Run()
     sf::Clock clock;
 
     m_snakes.push_back(Snake("Player1"));
+    m_snakes.push_back(Snake("Player2"));
 
     m_font.loadFromFile("ARCADECLASSIC.TTF");
     m_scoreText.setColor(sf::Color::Red);
@@ -147,9 +162,7 @@ void Game::Run()
         m_westBorder.setPosition(m_westBorderPos);
 
         //Draw score text
-        m_window.draw(m_scoreText);
-        m_scoreText.setString("Score " + std::to_string(m_score));
-        m_scoreText.setPosition(m_borderSize, 10);
+        DrawScoreText();
 
         if(m_gameOver)
         {
