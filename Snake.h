@@ -27,6 +27,8 @@ class Snake
         sf::CircleShape m_snakeHead{ 10.f };
         int m_growAmount { 0 };
         bool m_isAlive { true };
+        bool CheckCollision(const Snake& other) const;
+        bool CheckSelfCollision();
 
     protected:
 
@@ -35,7 +37,6 @@ class Snake
         int m_movement = m_snakeHead.getRadius() * 2;
         bool m_playerControlled;
         std::string m_name;
-
 
         sf::Vector2f m_position;
 };

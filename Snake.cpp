@@ -27,26 +27,53 @@ void Snake::DrawSnake(sf::RenderWindow &window)
 
 void Snake::SetDirection(sf::Event event)
 {
-    switch (event.key.code)
+    if (m_name == "Player1")
     {
-    case sf::Keyboard::Left:
-        if (m_currDirection != EDirection::eEast)
-            m_currDirection = EDirection::eWest;
-        break;
-    case sf::Keyboard::Right:
-        if (m_currDirection != EDirection::eWest)
-            m_currDirection = EDirection::eEast;
-        break;
-    case sf::Keyboard::Up:
-        if (m_currDirection != EDirection::eSouth)
-            m_currDirection = EDirection::eNorth;
-        break;
-    case sf::Keyboard::Down:
-        if (m_currDirection != EDirection::eNorth)
-            m_currDirection = EDirection::eSouth;
-        break;
-    default:
-        break;
+        switch (event.key.code)
+        {
+        case sf::Keyboard::Left:
+            if (m_currDirection != EDirection::eEast)
+                m_currDirection = EDirection::eWest;
+            break;
+        case sf::Keyboard::Right:
+            if (m_currDirection != EDirection::eWest)
+                m_currDirection = EDirection::eEast;
+            break;
+        case sf::Keyboard::Up:
+            if (m_currDirection != EDirection::eSouth)
+                m_currDirection = EDirection::eNorth;
+            break;
+        case sf::Keyboard::Down:
+            if (m_currDirection != EDirection::eNorth)
+                m_currDirection = EDirection::eSouth;
+            break;
+        default:
+            break;
+        }
+    }
+    if (m_name == "Player2")
+    {
+        switch (event.key.code)
+        {
+        case sf::Keyboard::A:
+            if (m_currDirection != EDirection::eEast)
+                m_currDirection = EDirection::eWest;
+            break;
+        case sf::Keyboard::D:
+            if (m_currDirection != EDirection::eWest)
+                m_currDirection = EDirection::eEast;
+            break;
+        case sf::Keyboard::W:
+            if (m_currDirection != EDirection::eSouth)
+                m_currDirection = EDirection::eNorth;
+            break;
+        case sf::Keyboard::S:
+            if (m_currDirection != EDirection::eNorth)
+                m_currDirection = EDirection::eSouth;
+            break;
+        default:
+            break;
+        }
     }
 }
 
@@ -85,6 +112,31 @@ void Snake::Move()
         m_position.y = 0;
     if(m_position.y < 0)
         m_position.y = 600 - m_movement;
+}
+
+bool Snake::CheckCollision(const Snake& other) const
+{
+    for (auto& otherSegment : other.m_snakeSegments)
+    {
+        if (m_snakeSegments.front() == otherSegment)
+        {
+            return true;
+        }
+    }
+}
+
+bool Snake::CheckSelfCollision()
+{
+    for(size_t i = 1; i < m_snakeSegments.size(); i++)
+    {
+        std::list<sf::Vector2f>::const_iterator it = m_snakeSegments.begin();
+        std::advance(it, i);
+
+        if(m_snakeSegments.front() == *it)
+        {
+            m_isAlive = false;
+        }
+    }
 }
 
 sf::Vector2f Snake::GetPosition()

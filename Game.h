@@ -34,7 +34,9 @@ class Game
         std::vector<Snake> m_snakes;
         Collectable m_collectables[5];
 
-        void Collision(Snake& s);
+        void CollectableCollision();
+        void WallCollision(Snake& s);
+        void SnakeCollision();
 
         // Create an instance of the SFML RenderWindow type which represents the display
         // and initialise its size and title text

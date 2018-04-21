@@ -11,7 +11,7 @@ Game::~Game()
     //dtor
 }
 
-void Game::Collision(Snake& s)
+void Game::WallCollision(Snake& s)
 {
     if(s.GetPosition().x >= m_screenWidth - m_borderSize) // collide with eastBorder
     {
@@ -35,6 +35,40 @@ void Game::Collision(Snake& s)
         m_gameOver = true;
     }
 
+}
+
+void Game::SnakeCollision()
+{
+    // Check for collisions
+    for (size_t i = 0; i < m_snakes.size(); i++)
+    {
+        for (size_t j = i + 1; j < m_snakes.size(); j++)
+        {
+            if (m_snakes[i].CheckCollision(m_snakes[j]))
+            {
+                m_snakes[i].m_isAlive = false;
+            }
+        }
+    }
+}
+
+void Game::CollectableCollision()
+{
+    for(Collectable& c : m_collectables)
+    {
+        if(c.IsActive() == false && rand() % 10 == 0 && !m_gameOver)
+        {
+            c.m_position.x = std::ceil((rand() % (m_screenWidth - m_borderSize) + (m_borderSize)) / 20) * 20;
+            c.m_position.y = std::ceil((rand() % (m_screenHeight - m_borderSize) + (m_borderSize * 2)) / 20) * 20;
+            c.m_active = true;
+        }
+
+        if(c.IsActive())
+            c.DrawCollectable(m_window);
+
+        for(Snake& s : m_snakes)
+            m_score += c.Collision(s);
+    }
 }
 
 void Game::Run()
@@ -85,23 +119,12 @@ void Game::Run()
         for(Snake& s : m_snakes)
         {
             s.DrawSnake(m_window);
-            Collision(s);
+            s.CheckSelfCollision();
+            SnakeCollision();
+            WallCollision(s);
         }
 
-        for(Collectable& c : m_collectables)
-        {
-            if(c.IsActive() == false && rand() % 10 == 0 && !m_gameOver)
-            {
-                c.m_position.x = std::ceil((rand() % (m_screenWidth - m_borderSize) + (m_borderSize)) / 20) * 20;
-                c.m_position.y = std::ceil((rand() % (m_screenHeight - m_borderSize) + (m_borderSize * 2)) / 20) * 20;
-                c.m_active = true;
-            }
-            if(c.IsActive())
-                c.DrawCollectable(m_window);
-
-            for(Snake& s : m_snakes)
-                m_score += c.Collision(s);
-        }
+        CollectableCollision();
 
         // Needed for time between movement
         while (clock.getElapsedTime().asMilliseconds() < m_movementSpeed);
