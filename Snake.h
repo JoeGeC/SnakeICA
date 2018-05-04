@@ -17,7 +17,7 @@ enum class EDirection
 class Snake
 {
     public:
-        Snake(std::string name);
+        Snake(std::string name, sf::Color snakeColor, bool isPlayer);
         virtual ~Snake();
         void DrawSnake(sf::RenderWindow &window);
         void SetDirection(sf::Event event);
@@ -29,17 +29,22 @@ class Snake
         int m_score { 0 };
         bool m_isAlive { true };
         bool CheckCollision(const Snake& other) const;
-        bool CheckSelfCollision();
+        void CheckSelfCollision();
+        sf::Color GetSnakeColor();
+        void SetAIDirection();
 
     protected:
 
     private:
         EDirection m_currDirection = EDirection::eEast;
+        EDirection m_reqDirection = EDirection::eEast;
         int m_movement = m_snakeHead.getRadius() * 2;
         bool m_playerControlled;
         std::string m_name;
+        sf::Color m_snakeColor;
 
         sf::Vector2f m_position;
+        bool m_isPlayer = true;
 };
 
 #endif // SNAKE_H

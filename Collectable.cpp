@@ -3,7 +3,7 @@
 
 Collectable::Collectable()
 {
-
+    m_colShape.setOrigin(m_colShape.getRadius(), m_colShape.getRadius());
 }
 
 Collectable::~Collectable()
@@ -16,8 +16,6 @@ void Collectable::DrawCollectable(sf::RenderWindow &window)
 
     window.draw(m_colShape);
     m_colShape.setPosition(m_position);
-    m_colShape.setFillColor(sf::Color::Green);
-
 }
 
 bool Collectable::IsActive()
@@ -32,5 +30,9 @@ int Collectable::Collision(Snake& s)
         m_active = false;
         s.m_growAmount += m_growAmount;
         return m_score;
+    }
+    else
+    {
+        return 0;
     }
 }

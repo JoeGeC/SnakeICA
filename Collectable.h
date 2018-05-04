@@ -19,7 +19,7 @@ class Collectable
     private:
         int m_score { 10 };
         int m_growAmount { 1 };
-        sf::CircleShape m_colShape{ 10.f };
+        sf::CircleShape m_colShape{ 8.f };
 };
 
 #endif // COLLECTABLE_H

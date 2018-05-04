@@ -1,5 +1,8 @@
 #include "Game.h"
 #include <string>
+#include "Sun.h"
+#include "Planet.h"
+#include "PlayerSnake.h"
 
 Game::Game()
 {
@@ -17,7 +20,7 @@ void Game::WallCollision(Snake& s)
     {
         s.m_isAlive = false;
     }
-    else if(s.GetPosition().x <= m_borderSize) // collide with westborder
+    else if(s.GetPosition().x <= m_borderSize * 5) // collide with westborder
     {
         s.m_isAlive = false;
     }
@@ -29,12 +32,6 @@ void Game::WallCollision(Snake& s)
     {
         s.m_isAlive = false;
     }
-
-    if(s.m_isAlive == false)
-    {
-        m_gameOver = true;
-    }
-
 }
 
 void Game::SnakeCollision()
@@ -78,11 +75,29 @@ void Game::DrawScoreText()
     {
         //Draw score text
         m_window.draw(m_scoreText);
-        m_scoreText.setString("Score " + std::to_string(s.m_score));
-        m_scoreText.setPosition(m_borderSize, 10 + (i * 10));
+        m_scoreText.setColor(s.GetSnakeColor());
+        m_scoreText.setString("Player " + std::to_string(i + 1) + " \n Score " + std::to_string(s.m_score));
+        m_scoreText.setPosition(5, m_borderSize + (i * 50));
         i++;
     }
 
+}
+
+void Game::GameOver()
+{
+    bool alive = false;
+    for(Snake& s : m_snakes)
+    {
+        if(s.m_isAlive)
+        {
+            alive = true;
+            break;
+        }
+    }
+    if (!alive)
+    {
+        m_gameOver = true;
+    }
 }
 
 void Game::Run()
@@ -94,8 +109,16 @@ void Game::Run()
 
     sf::Clock clock;
 
-    m_snakes.push_back(Snake("Player1"));
-    m_snakes.push_back(Snake("Player2"));
+    //SolarSystem solarSystem(m_window);
+
+    Sun sun(m_window);
+    Planet planet1(750, 750, 20);
+    Planet planet2(500, 500, 10);
+
+    m_snakes.push_back(Snake("Player1", sf::Color(239, 16, 53),  true));
+//    m_snakes.push_back(Snake("Player2", sf::Color(66, 134, 244), false));
+//    m_snakes.push_back(Snake("Player3", sf::Color(49, 226, 108), false));
+//    m_snakes.push_back(Snake("Player4", sf::Color(225, 232, 41), false));
 
     m_font.loadFromFile("ARCADECLASSIC.TTF");
     m_scoreText.setColor(sf::Color::Red);
@@ -124,6 +147,7 @@ void Game::Run()
 
         for(Snake& s : m_snakes)
         {
+            s.SetAIDirection();
             s.Move();
         }
 
@@ -137,13 +161,20 @@ void Game::Run()
             s.CheckSelfCollision();
             SnakeCollision();
             WallCollision(s);
+            sun.Collision(s);
+            planet1.PlanetCollision(s);
+            planet2.PlanetCollision(s);
         }
 
         CollectableCollision();
 
         // Needed for time between movement
-        while (clock.getElapsedTime().asMilliseconds() < m_movementSpeed);
+        while (clock.getElapsedTime().asMilliseconds() < m_gameSpeed);
         clock.restart();
+
+        sun.DrawSun(m_window);
+        planet1.DrawPlanet(m_window, sun.GetSunPosition(), 0.01, 0.01);
+        planet2.DrawPlanet(m_window, sun.GetSunPosition(), 0.02, 0.02);
 
         //Draw north border
         m_window.draw(m_northBorder);
@@ -164,9 +195,11 @@ void Game::Run()
         //Draw score text
         DrawScoreText();
 
+        GameOver();
+
         if(m_gameOver)
         {
-            m_gameOverText.setPosition(300, 250);
+            m_gameOverText.setPosition((m_screenWidth / 2) - 120, (m_screenHeight / 2) - 40);
             m_window.draw(m_gameOverText);
         }
 

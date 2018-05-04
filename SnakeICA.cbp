@@ -64,8 +64,12 @@
 		<Unit filename="Collectable.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
+		<Unit filename="Planet.cpp" />
+		<Unit filename="Planet.h" />
 		<Unit filename="Snake.cpp" />
 		<Unit filename="Snake.h" />
+		<Unit filename="Sun.cpp" />
+		<Unit filename="Sun.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
