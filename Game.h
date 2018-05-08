@@ -8,6 +8,7 @@
 #include "Snake.h"
 #include "Collectable.h"
 #include <string>
+#include "Sun.h"
 
 class Game
 {
@@ -16,6 +17,7 @@ class Game
         ~Game();
 
         void Run();
+        void Loop();
 
     protected:
 
@@ -36,7 +38,9 @@ class Game
         std::vector<Snake> m_snakes;
         Collectable m_collectables[5];
 
-        void CollectableCollision();
+        void SetCollectablePosition(Collectable& c);
+
+        void CollectableCollision(Sun& s);
         void WallCollision(Snake& s);
         void SnakeCollision();
 

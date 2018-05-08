@@ -2,7 +2,6 @@
 #include <string>
 #include "Sun.h"
 #include "Planet.h"
-#include "PlayerSnake.h"
 
 Game::Game()
 {
@@ -18,19 +17,19 @@ void Game::WallCollision(Snake& s)
 {
     if(s.GetPosition().x >= m_screenWidth - m_borderSize) // collide with eastBorder
     {
-        s.m_isAlive = false;
+        s.SetAlive(false);
     }
     else if(s.GetPosition().x <= m_borderSize * 5) // collide with westborder
     {
-        s.m_isAlive = false;
+        s.SetAlive(false);
     }
     else if(s.GetPosition().y <= m_borderSize) // collide with northborder
     {
-        s.m_isAlive = false;
+        s.SetAlive(false);
     }
     else if(s.GetPosition().y >= m_screenHeight - m_borderSize) // collide with south border
     {
-        s.m_isAlive = false;
+        s.SetAlive(false);
     }
 }
 
@@ -43,21 +42,25 @@ void Game::SnakeCollision()
         {
             if (m_snakes[i].CheckCollision(m_snakes[j]))
             {
-                m_snakes[i].m_isAlive = false;
+                m_snakes[i].SetAlive(false);
             }
         }
     }
 }
 
-void Game::CollectableCollision()
+void Game::CollectableCollision(Sun& s)
 {
     for(Collectable& c : m_collectables)
     {
         if(c.IsActive() == false && rand() % 10 == 0 && !m_gameOver)
         {
-            c.m_position.x = std::ceil((rand() % (m_screenWidth - m_borderSize) + (m_borderSize)) / 20) * 20;
-            c.m_position.y = std::ceil((rand() % (m_screenHeight - m_borderSize) + (m_borderSize * 2)) / 20) * 20;
-            c.m_active = true;
+            SetCollectablePosition(c);
+            c.SetActive();
+        }
+
+        if (hypot(s.GetSunPosition().x - c.GetPosition().x, s.GetSunPosition().y - c.GetPosition().y) <= (s.GetRadius() + c.GetRadius()))
+        {
+            SetCollectablePosition(c);
         }
 
         if(c.IsActive())
@@ -66,6 +69,13 @@ void Game::CollectableCollision()
         for(Snake& s : m_snakes)
             s.m_score += c.Collision(s);
     }
+}
+
+void Game::SetCollectablePosition(Collectable& c)
+{
+    float x = std::ceil((rand() % (m_screenWidth - m_borderSize) + (m_borderSize * 5)) / 20) * 20;
+    float y = std::ceil((rand() % (m_screenHeight - m_borderSize) + (m_borderSize)) / 20) * 20;
+    c.SetPosition(x, y);
 }
 
 void Game::DrawScoreText()
@@ -88,7 +98,7 @@ void Game::GameOver()
     bool alive = false;
     for(Snake& s : m_snakes)
     {
-        if(s.m_isAlive)
+        if(s.IsAlive())
         {
             alive = true;
             break;
@@ -100,6 +110,15 @@ void Game::GameOver()
     }
 }
 
+void Game::Loop()
+{
+    while(m_window.isOpen())
+    {
+
+        Run();
+    }
+}
+
 void Game::Run()
 {
     srand(time(NULL));
@@ -108,8 +127,6 @@ void Game::Run()
     std::cout << "Starting" << std::endl;
 
     sf::Clock clock;
-
-    //SolarSystem solarSystem(m_window);
 
     Sun sun(m_window);
     Planet planet1(750, 750, 20);
@@ -166,7 +183,7 @@ void Game::Run()
             planet2.PlanetCollision(s);
         }
 
-        CollectableCollision();
+        CollectableCollision(sun);
 
         // Needed for time between movement
         while (clock.getElapsedTime().asMilliseconds() < m_gameSpeed);

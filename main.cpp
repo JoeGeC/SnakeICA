@@ -13,7 +13,7 @@ int main()
 {
     Game snakeGame;
 
-    snakeGame.Run();
+    snakeGame.Loop();
 
     return 0;
 }

@@ -9,10 +9,6 @@ Planet::Planet(int planetPosX, int planetPosY, float planetSize)
     m_planet.setOrigin(m_planet.getRadius(), m_planet.getRadius());
 }
 
-Planet::~Planet()
-{
-    //dtor
-}
 
 void Planet::DrawPlanet(sf::RenderWindow& window, sf::Vector2f sunPosition, float cosVal, float sinVal)
 {
@@ -29,6 +25,6 @@ void Planet::PlanetCollision(Snake& s)
 {
     if (hypot(m_planetPosition.x - s.GetPosition().x, m_planetPosition.y - s.GetPosition().y) <= (m_planet.getRadius() + s.m_snakeHead.getRadius()))
     {
-        s.m_isAlive = false;
+        s.SetAlive(false);
     }
 }

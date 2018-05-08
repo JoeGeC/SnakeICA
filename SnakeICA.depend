@@ -356,39 +356,39 @@
 	<string>
 	<vector>
 
-1521644616 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/main.cpp
+1525787828 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/main.cpp
 	"Game.h"
 
-1525456426 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Snake.h
+1525791963 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Snake.h
 	<SFML/Graphics.hpp>
 	<string>
 	<list>
 
-1525458143 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Snake.cpp
+1525791801 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Snake.cpp
 	"Snake.h"
 	<SFML/Graphics.hpp>
 	"Collectable.h"
 
-1525457990 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Game.h
+1525790288 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<cstdlib>
 	"Snake.h"
 	"Collectable.h"
 	<string>
+	"Sun.h"
 
-1525458261 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Game.cpp
+1525791801 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Game.cpp
 	"Game.h"
 	<string>
 	"Sun.h"
 	"Planet.h"
-	"PlayerSnake.h"
 
-1525458074 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Collectable.h
+1525790245 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Collectable.h
 	<SFML/Graphics.hpp>
 	"Snake.h"
 
-1525458039 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Collectable.cpp
+1525790936 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Collectable.cpp
 	"Collectable.h"
 	"Snake.h"
 
@@ -398,20 +398,20 @@
 1525443302 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/SolarSystem.h
 	<SFML/Graphics.hpp>
 
-1525447955 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Sun.cpp
+1525791844 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Sun.cpp
 	"Sun.h"
 	"Snake.h"
 	<cmath>
 
-1525446217 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Sun.h
+1525790370 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Sun.h
 	<SFML/Graphics.hpp>
 	"Snake.h"
 
-1525458570 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Planet.cpp
+1525791831 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Planet.cpp
 	"Planet.h"
 	"Sun.h"
 
-1525448009 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Planet.h
+1525790370 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Planet.h
 	"Sun.h"
 	<SFML/Graphics.hpp>
 

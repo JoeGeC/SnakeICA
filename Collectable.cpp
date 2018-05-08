@@ -6,21 +6,11 @@ Collectable::Collectable()
     m_colShape.setOrigin(m_colShape.getRadius(), m_colShape.getRadius());
 }
 
-Collectable::~Collectable()
-{
-    //dtor
-}
-
 void Collectable::DrawCollectable(sf::RenderWindow &window)
 {
 
     window.draw(m_colShape);
     m_colShape.setPosition(m_position);
-}
-
-bool Collectable::IsActive()
-{
-    return m_active;
 }
 
 int Collectable::Collision(Snake& s)
@@ -35,4 +25,30 @@ int Collectable::Collision(Snake& s)
     {
         return 0;
     }
+}
+
+bool Collectable::IsActive()
+{
+    return m_active;
+}
+
+void Collectable::SetActive()
+{
+   m_active = true;
+}
+
+sf::Vector2f Collectable::GetPosition()
+{
+    return m_position;
+}
+
+float Collectable::GetRadius()
+{
+    return m_colShape.getRadius();
+}
+
+void Collectable::SetPosition(float x, float y)
+{
+    m_position.x = x;
+    m_position.y = y;
 }

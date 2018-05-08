@@ -8,7 +8,6 @@ class Planet
 {
     public:
         Planet(int planetPosX, int planetPosY, float planetSize);
-        virtual ~Planet();
         void DrawPlanet(sf::RenderWindow& window, sf::Vector2f sunPosition, float cosVal, float sinVal);
         void PlanetCollision(Snake& s);
 

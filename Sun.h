@@ -7,10 +7,10 @@ class Sun
 {
     public:
         Sun(sf::RenderWindow& window);
-        virtual ~Sun();
         void DrawSun(sf::RenderWindow& window);
-        sf::Vector2f GetSunPosition();
         void Collision(Snake& s);
+        sf::Vector2f GetSunPosition();
+        float GetRadius();
 
     protected:
 

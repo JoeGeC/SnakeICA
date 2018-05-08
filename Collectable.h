@@ -7,19 +7,23 @@ class Collectable
 {
     public:
         Collectable();
-        virtual ~Collectable();
         void DrawCollectable(sf::RenderWindow &window);
-        bool IsActive();
-        sf::Vector2f m_position;
         int Collision(Snake& s);
-        bool m_active {false};
+        bool IsActive();
+        void SetActive();
+        void SetPosition(float x, float y);
+        sf::Vector2f GetPosition();
+        sf::Vector2f SetPosition();
+        float GetRadius();
 
     protected:
 
     private:
         int m_score { 10 };
         int m_growAmount { 1 };
+        bool m_active {false};
         sf::CircleShape m_colShape{ 8.f };
+        sf::Vector2f m_position;
 };
 
 #endif // COLLECTABLE_H

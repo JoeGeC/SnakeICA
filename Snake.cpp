@@ -198,3 +198,16 @@ sf::Color Snake::GetSnakeColor()
 {
     return m_snakeColor;
 }
+
+void Snake::SetAlive(bool alive)
+{
+    if(alive)
+        m_isAlive = true;
+    else
+        m_isAlive = false;
+}
+
+bool Snake::IsAlive()
+{
+    return m_isAlive;
+}
