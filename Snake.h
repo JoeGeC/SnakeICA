@@ -29,10 +29,10 @@ class Snake
         bool IsAlive() const;
         bool CheckCollision(const Snake* other) const;
         void CheckSelfCollision();
-        void CheckPlanetCollision(Planet& planet);
+        void CheckPlanetCollision(SolarSystem& ss);
         sf::Color GetSnakeColor() const;
         sf::CircleShape m_snakeHead{ 10.f };
-        int m_growAmount { 0 };
+        int m_growAmount { 10 };
         int m_score { 0 };
 
 

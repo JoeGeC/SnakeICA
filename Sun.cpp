@@ -4,23 +4,19 @@
 
 Sun::Sun(sf::RenderWindow& window)
 {
-    m_sunPosition.x = ((window.getSize().x / 2));
-    m_sunPosition.y = ((window.getSize().y /2));
-    m_sun.setOrigin(m_sun.getRadius(), m_sun.getRadius());
-    m_sun.setPosition(m_sunPosition);
+    m_position.x = ((window.getSize().x / 2));
+    m_position.y = ((window.getSize().y /2));
+    m_circle.setOrigin(GetRadius(), GetRadius());
+    m_circle.setPosition(m_position);
 }
 
 void Sun::DrawSun(sf::RenderWindow& window)
 {
 
-    m_sun.setFillColor(sf::Color(255, 165, 0));
-    window.draw(m_sun);
+    m_circle.setFillColor(sf::Color(255, 165, 0));
+    window.draw(m_circle);
 }
 
-sf::Vector2f Sun::GetSunPosition()
-{
-    return m_sunPosition;
-}
 
 //void Sun::Collision(Snake* s)
 //{
@@ -29,8 +25,3 @@ sf::Vector2f Sun::GetSunPosition()
 //        s->SetAlive(false);
 //    }
 //}
-
-float Sun::GetRadius()
-{
-    return m_sun.getRadius();
-}

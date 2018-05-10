@@ -113,13 +113,13 @@ void Snake::CheckSelfCollision()
     }
 }
 
-void Snake::CheckPlanetCollision(Planet& planet)
+void Snake::CheckPlanetCollision(SolarSystem& ss)
 {
     for(size_t i = 0; i < m_snakeSegments.size(); i++)
     {
         std::list<sf::Vector2f>::const_iterator it = m_snakeSegments.begin();
         std::advance(it, i);
-        if(hypot(planet.GetPosition().x - (*it).x, planet.GetPosition().y - (*it).y) <= (planet.GetRadius() + m_snakeHead.getRadius()))
+        if(hypot(ss.GetPosition().x - (*it).x, ss.GetPosition().y - (*it).y) <= (ss.GetRadius() + m_snakeHead.getRadius()))
         {
             m_snakeSegments.pop_back();
             std::cout << "Collision" << std::endl << std::endl;

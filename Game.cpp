@@ -63,7 +63,7 @@ void Game::CollectableCollision(Sun& s)
             c.SetActive(true);
         }
 
-        if (hypot(s.GetSunPosition().x - c.GetPosition().x, s.GetSunPosition().y - c.GetPosition().y) <= (s.GetRadius() + c.GetRadius()))
+        if (hypot(s.GetPosition().x - c.GetPosition().x, s.GetPosition().y - c.GetPosition().y) <= (s.GetRadius() + c.GetRadius()))
         {
             SetCollectablePosition(c);
         }
@@ -275,28 +275,6 @@ void Game::Run()
         m_snakes.push_back(new AISnake("Player" + std::to_string(i + 1 + m_amountOfPlayers), m_playerColors[i + m_amountOfPlayers].color));
     }
 
-//    if(m_amountOfPlayers == 1)
-//    {
-//        m_snakes.push_back(new PlayerSnake("Player1", m_playerColors[0].color));
-//        m_snakes.push_back(new AISnake("Player2", m_playerColors[1].color));
-//        m_snakes.push_back(new AISnake("Player3", m_playerColors[2].color));
-//        m_snakes.push_back(new AISnake("Player4", m_playerColors[3].color));
-//    }
-//    else if (m_amountOfPlayers == 2)
-//    {
-//        m_snakes.push_back(new PlayerSnake("Player1", m_playerColors[0].color));
-//        m_snakes.push_back(new PlayerSnake("Player2", m_playerColors[1].color));
-//        m_snakes.push_back(new AISnake("Player3", m_playerColors[2].color));
-//        m_snakes.push_back(new AISnake("Player4", m_playerColors[3].color));
-//    }
-//    else
-//    {
-//        m_snakes.push_back(new AISnake("Player1", m_playerColors[0].color));
-//        m_snakes.push_back(new AISnake("Player2", m_playerColors[1].color));
-//        m_snakes.push_back(new AISnake("Player3", m_playerColors[2].color));
-//        m_snakes.push_back(new AISnake("Player4", m_playerColors[3].color));
-//    }
-
     m_winner = m_snakes[0];
 
     // Main loop that continues until we call Close()
@@ -338,9 +316,7 @@ void Game::Run()
                 WallCollision(s);
                 s->CheckPlanetCollision(planet1);
                 s->CheckPlanetCollision(planet2);
-//                sun.Collision(s);
-//                planet1.PlanetCollision(s);
-//                planet2.PlanetCollision(s);
+                s->CheckPlanetCollision(sun);
             }
 
             CollectableCollision(sun);
@@ -353,8 +329,8 @@ void Game::Run()
         clock.restart();
 
         sun.DrawSun(m_window);
-        planet1.DrawPlanet(m_window, sun.GetSunPosition(), 0.01, 0.01);
-        planet2.DrawPlanet(m_window, sun.GetSunPosition(), 0.02, 0.02);
+        planet1.DrawPlanet(m_window, sun.GetPosition(), 0.01, 0.01);
+        planet2.DrawPlanet(m_window, sun.GetPosition(), 0.02, 0.02);
 
         //Draw north border
         m_window.draw(m_northBorder);

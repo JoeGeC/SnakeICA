@@ -3,22 +3,22 @@
 
 Planet::Planet(int planetPosX, int planetPosY, float planetSize)
 {
-    m_planetPosition.x = planetPosX;
-    m_planetPosition.y = planetPosY;
-    m_planet.setRadius(planetSize);
-    m_planet.setOrigin(m_planet.getRadius(), m_planet.getRadius());
+    m_position.x = planetPosX;
+    m_position.y = planetPosY;
+    m_circle.setRadius(planetSize);
+    m_circle.setOrigin(GetRadius(), GetRadius());
 }
 
 
 void Planet::DrawPlanet(sf::RenderWindow& window, sf::Vector2f sunPosition, float cosVal, float sinVal)
 {
-    sf::Vector2f temp = m_planetPosition - sunPosition;
-    m_planetPosition.x = temp.x * cos(cosVal) - temp.y * sin(sinVal);
-    m_planetPosition.y = temp.y * cos(cosVal) + temp.x * sin(sinVal);
-    m_planetPosition += sunPosition;
-    m_planet.setPosition(m_planetPosition);
-    m_planet.setFillColor(sf::Color::Blue);
-    window.draw(m_planet);
+    sf::Vector2f temp = m_position - sunPosition;
+    m_position.x = temp.x * cos(cosVal) - temp.y * sin(sinVal);
+    m_position.y = temp.y * cos(cosVal) + temp.x * sin(sinVal);
+    m_position += sunPosition;
+    m_circle.setPosition(m_position);
+    m_circle.setFillColor(sf::Color::Blue);
+    window.draw(m_circle);
 }
 
 //void Planet::PlanetCollision(Snake* s)
@@ -28,13 +28,3 @@ void Planet::DrawPlanet(sf::RenderWindow& window, sf::Vector2f sunPosition, floa
 //        s->SetAlive(false);
 //    }
 //}
-
-sf::Vector2f Planet::GetPosition()
-{
-    return m_planetPosition;
-}
-
-float Planet::GetRadius()
-{
-    return m_planet.getRadius();
-}
