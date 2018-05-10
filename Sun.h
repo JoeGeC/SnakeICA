@@ -8,7 +8,7 @@ class Sun
     public:
         Sun(sf::RenderWindow& window);
         void DrawSun(sf::RenderWindow& window);
-        void Collision(Snake& s);
+        void Collision(Snake* s);
         sf::Vector2f GetSunPosition();
         float GetRadius();
 

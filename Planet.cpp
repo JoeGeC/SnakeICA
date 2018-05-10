@@ -21,10 +21,20 @@ void Planet::DrawPlanet(sf::RenderWindow& window, sf::Vector2f sunPosition, floa
     window.draw(m_planet);
 }
 
-void Planet::PlanetCollision(Snake& s)
+void Planet::PlanetCollision(Snake* s)
 {
-    if (hypot(m_planetPosition.x - s.GetPosition().x, m_planetPosition.y - s.GetPosition().y) <= (m_planet.getRadius() + s.m_snakeHead.getRadius()))
+    if (hypot(m_planetPosition.x - s->GetPosition().x, m_planetPosition.y - s->GetPosition().y) <= (m_planet.getRadius() + s->m_snakeHead.getRadius()))
     {
-        s.SetAlive(false);
+        s->SetAlive(false);
     }
+}
+
+sf::Vector2f Planet::GetPosition()
+{
+    return m_planetPosition;
+}
+
+float Planet::GetRadius()
+{
+    return m_planet.getRadius();
 }

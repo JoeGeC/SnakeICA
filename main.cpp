@@ -11,9 +11,13 @@
 
 int main()
 {
-    Game snakeGame;
 
-    snakeGame.Loop();
+    while (true)
+    {
+        Game snakeGame;
+
+        snakeGame.Start();
+    }
 
     return 0;
 }

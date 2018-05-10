@@ -60,12 +60,18 @@
 			<Add option="-std=c++1y" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="AISnake.cpp" />
+		<Unit filename="AISnake.h" />
 		<Unit filename="Collectable.cpp" />
 		<Unit filename="Collectable.h" />
+		<Unit filename="Color.cpp" />
+		<Unit filename="Color.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
 		<Unit filename="Planet.cpp" />
 		<Unit filename="Planet.h" />
+		<Unit filename="PlayerSnake.cpp" />
+		<Unit filename="PlayerSnake.h" />
 		<Unit filename="Snake.cpp" />
 		<Unit filename="Snake.h" />
 		<Unit filename="Sun.cpp" />

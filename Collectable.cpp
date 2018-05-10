@@ -13,12 +13,12 @@ void Collectable::DrawCollectable(sf::RenderWindow &window)
     m_colShape.setPosition(m_position);
 }
 
-int Collectable::Collision(Snake& s)
+int Collectable::Collision(Snake* s)
 {
-    if(m_position == s.GetPosition())
+    if(m_position == s->GetPosition() && s->IsAlive())
     {
         m_active = false;
-        s.m_growAmount += m_growAmount;
+        s->m_growAmount += m_growAmount;
         return m_score;
     }
     else
@@ -32,9 +32,9 @@ bool Collectable::IsActive()
     return m_active;
 }
 
-void Collectable::SetActive()
+void Collectable::SetActive(bool active)
 {
-   m_active = true;
+   m_active = active;
 }
 
 sf::Vector2f Collectable::GetPosition()

@@ -22,11 +22,11 @@ sf::Vector2f Sun::GetSunPosition()
     return m_sunPosition;
 }
 
-void Sun::Collision(Snake& s)
+void Sun::Collision(Snake* s)
 {
-    if (hypot(m_sunPosition.x - s.GetPosition().x, m_sunPosition.y - s.GetPosition().y) <= (m_sun.getRadius() + s.m_snakeHead.getRadius()))
+    if (hypot(m_sunPosition.x - s->GetPosition().x, m_sunPosition.y - s->GetPosition().y) <= (m_sun.getRadius() + s->m_snakeHead.getRadius()))
     {
-        s.SetAlive(false);
+        s->SetAlive(false);
     }
 }
 

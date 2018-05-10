@@ -356,20 +356,34 @@
 	<string>
 	<vector>
 
-1525787828 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/main.cpp
+1525909338 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/main.cpp
 	"Game.h"
 
-1525791963 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Snake.h
+1525891954 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/Collectable.cpp
+	"Collectable.h"
+	"Snake.h"
+
+1525891969 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/Collectable.h
+	<SFML/Graphics.hpp>
+	"Snake.h"
+
+1525918970 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/Snake.h
 	<SFML/Graphics.hpp>
 	<string>
 	<list>
 
-1525791801 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Snake.cpp
-	"Snake.h"
-	<SFML/Graphics.hpp>
-	"Collectable.h"
+1525918616 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/Game.cpp
+	"Game.h"
+	<string>
+	<sstream>
+	<iomanip>
+	<ctime>
+	"Sun.h"
+	"Planet.h"
+	"PlayerSnake.h"
+	"AISnake.h"
 
-1525790288 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Game.h
+1525911902 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<cstdlib>
@@ -378,43 +392,43 @@
 	<string>
 	"Sun.h"
 
-1525791801 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Game.cpp
-	"Game.h"
-	<string>
+1525919503 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/Sun.h
+	<SFML/Graphics.hpp>
+	"Snake.h"
+
+1525918932 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/Planet.h
 	"Sun.h"
+	<SFML/Graphics.hpp>
+
+1525883188 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/PlayerSnake.h
+	"Snake.h"
+
+1525881967 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/AISnake.h
+	"Snake.h"
+
+1525918932 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/Planet.cpp
 	"Planet.h"
+	"Sun.h"
 
-1525790245 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Collectable.h
-	<SFML/Graphics.hpp>
+1525883658 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/PlayerSnake.cpp
+	"PlayerSnake.h"
+
+1525918932 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/Snake.cpp
 	"Snake.h"
-
-1525790936 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Collectable.cpp
+	<SFML/Graphics.hpp>
 	"Collectable.h"
-	"Snake.h"
+	<iostream>
 
-1525443069 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/SolarSystem.cpp
-	"SolarSystem.h"
-
-1525443302 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/SolarSystem.h
-	<SFML/Graphics.hpp>
-
-1525791844 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Sun.cpp
+1525919033 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/Sun.cpp
 	"Sun.h"
 	"Snake.h"
 	<cmath>
 
-1525790370 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Sun.h
-	<SFML/Graphics.hpp>
-	"Snake.h"
+1525882266 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/AISnake.cpp
+	"AISnake.h"
 
-1525791831 source:/nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Planet.cpp
-	"Planet.h"
-	"Sun.h"
+1525900670 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/Color.cpp
+	"Color.h"
 
-1525790370 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/Planet.h
-	"Sun.h"
-	<SFML/Graphics.hpp>
-
-1525451997 /nethome1/scm-studs/t7051015/CPP in Games/SnakeICA/PlayerSnake.h
-	"Snake.h"
+1525900670 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICANew/Color.h
 

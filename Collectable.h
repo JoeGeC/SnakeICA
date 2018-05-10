@@ -8,9 +8,9 @@ class Collectable
     public:
         Collectable();
         void DrawCollectable(sf::RenderWindow &window);
-        int Collision(Snake& s);
+        int Collision(Snake* s);
         bool IsActive();
-        void SetActive();
+        void SetActive(bool active);
         void SetPosition(float x, float y);
         sf::Vector2f GetPosition();
         sf::Vector2f SetPosition();
