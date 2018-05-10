@@ -15,6 +15,7 @@ enum class EGameState
     eWaitingToStart,
     eInGame,
     eAtEndScreen,
+    eAtHighScores,
 };
 
 struct SColor
@@ -23,13 +24,18 @@ struct SColor
     std::string name;
 };
 
+struct highScore
+{
+	std::string name;
+	int score;
+};
+
 class Game
 {
     public:
         Game();
         ~Game();
 
-        void Run();
         void Start();
 
     protected:
@@ -42,8 +48,11 @@ class Game
         int m_gameSpeed {50};
         int m_alive { 4 };
 
+        std::vector<highScore> highScores;
+
         bool m_gameOver { false };
         Snake* m_winner;
+        int m_winnerScore { 0 };
 
         sf::Font m_font;
         sf::Text m_scoreText{ "Score ", m_font, 20 };
@@ -53,10 +62,14 @@ class Game
         sf::Text m_spaceText { "Press  Space  to  Continue", m_font, 50 };
         sf::Text m_playerNoText { "Players", m_font, 40 };
         sf::Text m_playerColorText {"Player ", m_font, 40 };
+        sf::Text m_highScoreText {"High Scores", m_font, 40 };
+        sf::Text m_highScoresText { "Player1", m_font, 40 };
+        sf::Text m_newScoreText { "You got a new high score!", m_font, 40 };
 
         sf::Clock m_timer;
         int m_timeLeft { 90 };
 
+        void Run();
         void MainMenu();
         int m_menuSelection = 0;
         int m_amountOfPlayers = 0;
@@ -67,7 +80,7 @@ class Game
         SColor yellow = { sf::Color(225, 232, 41), "Yellow" };
         SColor m_availableColors[4]{ red, blue, green, yellow };
         SColor m_playerColors[4]{ red, blue, green, yellow };
-        int m_player1ColorSelector = 0;
+//        int m_player1ColorSelector = 0;
 //        sf::Color m_player1Color = sf::Color(239, 16, 53);
 //        sf::Color m_player2Color = sf::Color(66, 134, 244);
 //        sf::Color m_player3Color = sf::Color(49, 226, 108);
@@ -88,6 +101,10 @@ class Game
         void Reset();
         bool m_hasReset { false };
 
+        void HighScores();
+        void LoadScores();
+        void SaveScores();
+
         // Create an instance of the SFML RenderWindow type which represents the display
         // and initialise its size and title text
         sf::RenderWindow m_window{sf::VideoMode(m_screenWidth, m_screenHeight), "C++ Snake ICA : T7051015"};
@@ -100,11 +117,11 @@ class Game
 
         //South border
         sf::RectangleShape m_southBorder{sf::Vector2f(m_screenWidth, m_borderSize)};
-        sf::Vector2f m_southBorderPos{ 0, m_screenHeight - m_borderSize };
+        sf::Vector2f m_southBorderPos{ 0, static_cast<float>(m_screenHeight - m_borderSize) };
 
         //East border
         sf::RectangleShape m_eastBorder{sf::Vector2f(m_borderSize, m_screenHeight)};
-        sf::Vector2f m_eastBorderPos{ m_screenWidth - m_borderSize, 0 };
+        sf::Vector2f m_eastBorderPos{ static_cast<float>(m_screenWidth - m_borderSize), 0 };
 
         //West border
         sf::RectangleShape m_westBorder{sf::Vector2f(m_borderSize * 5, m_screenHeight)};

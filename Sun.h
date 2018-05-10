@@ -9,7 +9,6 @@ class Sun : public SolarSystem
     public:
         Sun(sf::RenderWindow& window);
         void DrawSun(sf::RenderWindow& window);
-//        void Collision(Snake* s);
 
     protected:
 

@@ -27,7 +27,7 @@ class Snake
         std::list<sf::Vector2f> m_snakeSegments;
         void SetAlive(bool alive);
         bool IsAlive() const;
-        bool CheckCollision(const Snake* other) const;
+        bool CheckCollision(const Snake& other) const;
         void CheckSelfCollision();
         void CheckPlanetCollision(SolarSystem& ss);
         sf::Color GetSnakeColor() const;

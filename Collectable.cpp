@@ -3,12 +3,11 @@
 
 Collectable::Collectable()
 {
-    m_colShape.setOrigin(m_colShape.getRadius(), m_colShape.getRadius());
+    m_colShape.setOrigin(m_colShape.getRadius(), m_colShape.getRadius()); //sets origin to center of shape
 }
 
 void Collectable::DrawCollectable(sf::RenderWindow &window)
 {
-
     window.draw(m_colShape);
     m_colShape.setPosition(m_position);
 }
@@ -51,4 +50,9 @@ void Collectable::SetPosition(float x, float y)
 {
     m_position.x = x;
     m_position.y = y;
+}
+
+void Collectable::SetGrowAmount(int i)
+{
+    m_growAmount = i;
 }

@@ -12,6 +12,7 @@ Planet::Planet(int planetPosX, int planetPosY, float planetSize)
 
 void Planet::DrawPlanet(sf::RenderWindow& window, sf::Vector2f sunPosition, float cosVal, float sinVal)
 {
+    //sets position to rotate around sun
     sf::Vector2f temp = m_position - sunPosition;
     m_position.x = temp.x * cos(cosVal) - temp.y * sin(sinVal);
     m_position.y = temp.y * cos(cosVal) + temp.x * sin(sinVal);

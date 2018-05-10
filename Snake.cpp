@@ -5,6 +5,7 @@
 
 Snake::Snake(std::string name, sf::Color snakeColor) : m_name(name), m_snakeColor(snakeColor)
 {
+    //sets each snake starting position
     if (name == "Player1")
     {
         m_position.x = 360;
@@ -27,7 +28,7 @@ Snake::Snake(std::string name, sf::Color snakeColor) : m_name(name), m_snakeColo
     }
 
     m_snakeSegments.push_front(m_position);
-    m_snakeHead.setOrigin(m_snakeHead.getRadius(), m_snakeHead.getRadius());
+    m_snakeHead.setOrigin(m_snakeHead.getRadius(), m_snakeHead.getRadius()); //set origin to center of shape
     m_snakeHead.setFillColor(snakeColor);
 }
 
@@ -40,7 +41,6 @@ void Snake::DrawSnake(sf::RenderWindow &window)
 {
     for(auto& s : m_snakeSegments)
     {
-
         if(m_isAlive)
         {
             m_snakeHead.setPosition(s);
@@ -51,6 +51,7 @@ void Snake::DrawSnake(sf::RenderWindow &window)
 
 void Snake::Move()
 {
+    //move to requested direction
     m_currDirection = m_reqDirection;
     switch (m_currDirection)
     {
@@ -70,6 +71,7 @@ void Snake::Move()
         break;
     }
 
+    //move
     m_snakeSegments.push_front(m_position);
 
     if (m_growAmount > 0)
@@ -78,21 +80,19 @@ void Snake::Move()
         m_snakeSegments.pop_back();
 }
 
-bool Snake::CheckCollision(const Snake* other) const
+bool Snake::CheckCollision(const Snake& other) const
 {
-    if(IsAlive() && other->IsAlive())
+    //check if colliding with other snakes
+    if(IsAlive() && other.IsAlive())
     {
-        for (auto& otherSegment : other->m_snakeSegments)
+        for (auto& otherSegment : other.m_snakeSegments)
         {
             if (m_snakeSegments.front() == otherSegment)
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
         }
+        return false;
     }
     else
         return false;
@@ -100,13 +100,13 @@ bool Snake::CheckCollision(const Snake* other) const
 
 void Snake::CheckSelfCollision()
 {
-
+    //checks snake collides with self
     for(size_t i = 1; i < m_snakeSegments.size(); i++)
     {
         std::list<sf::Vector2f>::const_iterator it = m_snakeSegments.begin();
         std::advance(it, i);
 
-        if(m_snakeSegments.front() == *it)
+        if(m_snakeSegments.front() == *it) //if head collides with body
         {
             m_isAlive = false;
         }
@@ -115,14 +115,15 @@ void Snake::CheckSelfCollision()
 
 void Snake::CheckPlanetCollision(SolarSystem& ss)
 {
+    //if collides with sun or planets
     for(size_t i = 0; i < m_snakeSegments.size(); i++)
     {
         std::list<sf::Vector2f>::const_iterator it = m_snakeSegments.begin();
         std::advance(it, i);
-        if(hypot(ss.GetPosition().x - (*it).x, ss.GetPosition().y - (*it).y) <= (ss.GetRadius() + m_snakeHead.getRadius()))
+        if(hypot(ss.GetPosition().x - (*it).x, ss.GetPosition().y - (*it).y) <= (ss.GetRadius() + m_snakeHead.getRadius())) //checks any snake segment collides with sun or planet
         {
-            m_snakeSegments.resize(i);
-            if (m_snakeSegments.size() == 0)
+            m_snakeSegments.resize(i); //get rid of snake segments from point hit onwards
+            if (m_snakeSegments.size() <= 0) //if no snake left, its dead
             {
                 SetAlive(false);
             }

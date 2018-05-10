@@ -16,6 +16,7 @@ class Collectable
         sf::Vector2f GetPosition();
         sf::Vector2f SetPosition();
         float GetRadius();
+        void SetGrowAmount(int i);
 
     protected:
 

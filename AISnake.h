@@ -11,7 +11,6 @@ class AISnake : public Snake
         AISnake(std::string name, sf::Color snakeColor);
         virtual ~AISnake();
         void SetDirection() override;
-        void FindCollectable(Collectable& c);
 };
 
 #endif // AISNAKE_H

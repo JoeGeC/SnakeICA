@@ -12,8 +12,10 @@
 int main()
 {
 
+    //Game loop
     while (true)
     {
+        //new game created each time
         Game snakeGame;
 
         snakeGame.Start();
