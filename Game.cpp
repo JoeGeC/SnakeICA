@@ -78,7 +78,7 @@ void Game::CollectableCollision(Sun& s)
 
 void Game::SetCollectablePosition(Collectable& c)
 {
-    float x = std::ceil((rand() % (m_screenWidth - m_borderSize) + (m_borderSize * 5)) / 20) * 20;
+    float x = std::ceil((rand() % (m_screenWidth - (m_borderSize * 5)) + (m_borderSize * 5)) / 20) * 20;
     float y = std::ceil((rand() % (m_screenHeight - m_borderSize) + (m_borderSize)) / 20) * 20;
     c.SetPosition(x, y);
 }
@@ -290,6 +290,11 @@ void Game::Run()
             case sf::Event::Closed:
                 m_window.close();
                 break;
+            case sf::Event::KeyPressed:
+                switch (event.key.code)
+                    case sf::Keyboard::Escape:
+                        m_gameOver = true;
+                        break;
             default:
                 break;
             }
@@ -301,7 +306,7 @@ void Game::Run()
 
         for(Snake* s : m_snakes)
         {
-            s->Update();
+            s->SetDirection();
             s->Move();
         }
 
@@ -367,8 +372,8 @@ void Game::Run()
 
         if(m_gameOver)
         {
-            m_gameOverText.setPosition((m_screenWidth / 2) - 180, (m_screenHeight / 2) - 40);
-            m_gameOverText.setString("          GAME OVER \n Winner  " + m_winner->GetSnakeName() + "! \n \n Press Enter to Return");
+            m_gameOverText.setPosition((m_screenWidth / 2) - 240, (m_screenHeight / 2) - 200);
+            m_gameOverText.setString("                         GAME OVER \n            Winner  " + m_winner->GetSnakeName() + "! \n \n \n \n \n Press Enter to Return");
             m_window.draw(m_gameOverText);
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))

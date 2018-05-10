@@ -12,7 +12,7 @@ Snake::Snake(std::string name, sf::Color snakeColor) : m_name(name), m_snakeColo
     }
     else if (name == "Player2")
     {
-        m_position.x = 360;
+        m_position.x = 1500;
         m_position.y = 220;
     }
     else if (name == "Player3")
@@ -121,7 +121,11 @@ void Snake::CheckPlanetCollision(SolarSystem& ss)
         std::advance(it, i);
         if(hypot(ss.GetPosition().x - (*it).x, ss.GetPosition().y - (*it).y) <= (ss.GetRadius() + m_snakeHead.getRadius()))
         {
-            m_snakeSegments.pop_back();
+            m_snakeSegments.resize(i);
+            if (m_snakeSegments.size() == 0)
+            {
+                SetAlive(false);
+            }
             std::cout << "Collision" << std::endl << std::endl;
         }
     }

@@ -19,7 +19,7 @@ class Snake
     public:
         Snake(std::string name, sf::Color snakeColor);
         virtual ~Snake();
-        virtual void Update() = 0;
+        virtual void SetDirection() = 0;
         void DrawSnake(sf::RenderWindow &window);
         void Move();
         sf::Vector2f GetPosition() const;
@@ -32,7 +32,7 @@ class Snake
         void CheckPlanetCollision(SolarSystem& ss);
         sf::Color GetSnakeColor() const;
         sf::CircleShape m_snakeHead{ 10.f };
-        int m_growAmount { 10 };
+        int m_growAmount { 0 };
         int m_score { 0 };
 
 

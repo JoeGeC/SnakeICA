@@ -4,7 +4,7 @@
 
 Sun::Sun(sf::RenderWindow& window)
 {
-    m_position.x = ((window.getSize().x / 2));
+    m_position.x = ((window.getSize().x / 2) + 50);
     m_position.y = ((window.getSize().y /2));
     m_circle.setOrigin(GetRadius(), GetRadius());
     m_circle.setPosition(m_position);

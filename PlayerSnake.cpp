@@ -10,38 +10,28 @@ PlayerSnake::~PlayerSnake()
     //dtor
 }
 
-EDirection PlayerSnake::SetDirection()
+void PlayerSnake::SetDirection()
 {
     if (m_name == "Player1")
     {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && m_currDirection != EDirection::eEast)
-            return EDirection::eWest;
+            m_reqDirection = EDirection::eWest;
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && m_currDirection != EDirection::eWest)
-            return EDirection::eEast;
+            m_reqDirection = EDirection::eEast;
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && m_currDirection != EDirection::eSouth)
-            return EDirection::eNorth;
+            m_reqDirection = EDirection::eNorth;
         else if((sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && m_currDirection != EDirection::eNorth))
-            return EDirection::eSouth;
-        else
-            return m_reqDirection;
+            m_reqDirection = EDirection::eSouth;
     }
     else if (m_name == "Player2")
     {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) && m_currDirection != EDirection::eEast)
-            return EDirection::eWest;
+            m_reqDirection = EDirection::eWest;
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) && m_currDirection != EDirection::eWest)
-            return EDirection::eEast;
+            m_reqDirection = EDirection::eEast;
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && m_currDirection != EDirection::eSouth)
-            return EDirection::eNorth;
+            m_reqDirection = EDirection::eNorth;
         else if((sf::Keyboard::isKeyPressed(sf::Keyboard::S) && m_currDirection != EDirection::eNorth))
-            return EDirection::eSouth;
-        else
-            return m_reqDirection;
+            m_reqDirection = EDirection::eSouth;
     }
-
-}
-
-void PlayerSnake::Update()
-{
-    m_reqDirection = SetDirection();
 }

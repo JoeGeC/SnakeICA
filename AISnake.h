@@ -2,6 +2,7 @@
 #define AISNAKE_H
 
 #include "Snake.h"
+#include "Collectable.h"
 
 
 class AISnake : public Snake
@@ -9,8 +10,8 @@ class AISnake : public Snake
     public:
         AISnake(std::string name, sf::Color snakeColor);
         virtual ~AISnake();
-        void Update() override;
-        EDirection SetDirection();
+        void SetDirection() override;
+        void FindCollectable(Collectable& c);
 };
 
 #endif // AISNAKE_H

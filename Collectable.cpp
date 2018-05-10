@@ -19,7 +19,7 @@ int Collectable::Collision(Snake* s)
     {
         m_active = false;
         s->m_growAmount += m_growAmount;
-        return m_score;
+        return m_score + (s->m_snakeSegments.size() / 2);
     }
     else
     {

@@ -12,6 +12,7 @@ class Planet : public SolarSystem
         void DrawPlanet(sf::RenderWindow& window, sf::Vector2f sunPosition, float cosVal, float sinVal);
 //        void PlanetCollision(Snake* s);
 
+
     protected:
 
     private:

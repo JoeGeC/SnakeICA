@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Snake.h"
+
 class Collectable
 {
     public:

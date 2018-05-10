@@ -44,7 +44,6 @@ class Game
 
         bool m_gameOver { false };
         Snake* m_winner;
-//        bool m_gameRunning { false };
 
         sf::Font m_font;
         sf::Text m_scoreText{ "Score ", m_font, 20 };
