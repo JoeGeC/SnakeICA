@@ -1,14 +1,14 @@
 #ifndef SUN_H
 #define SUN_H
 #include <SFML/Graphics.hpp>
-#include "Snake.h"
+//#include "Snake.h"
 
 class Sun
 {
     public:
         Sun(sf::RenderWindow& window);
         void DrawSun(sf::RenderWindow& window);
-        void Collision(Snake* s);
+//        void Collision(Snake* s);
         sf::Vector2f GetSunPosition();
         float GetRadius();
 

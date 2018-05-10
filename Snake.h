@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <list>
-//#include "Planet.h"
+#include "Planet.h"
 
 enum class EDirection
 {
@@ -29,7 +29,7 @@ class Snake
         bool IsAlive() const;
         bool CheckCollision(const Snake* other) const;
         void CheckSelfCollision();
-//        void CheckPlanetCollision(Planet& planet);
+        void CheckPlanetCollision(Planet& planet);
         sf::Color GetSnakeColor() const;
         sf::CircleShape m_snakeHead{ 10.f };
         int m_growAmount { 0 };

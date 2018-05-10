@@ -336,6 +336,8 @@ void Game::Run()
                 s->CheckSelfCollision();
                 SnakeCollision();
                 WallCollision(s);
+                s->CheckPlanetCollision(planet1);
+                s->CheckPlanetCollision(planet2);
 //                sun.Collision(s);
 //                planet1.PlanetCollision(s);
 //                planet2.PlanetCollision(s);

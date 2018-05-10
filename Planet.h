@@ -9,7 +9,7 @@ class Planet
     public:
         Planet(int planetPosX, int planetPosY, float planetSize);
         void DrawPlanet(sf::RenderWindow& window, sf::Vector2f sunPosition, float cosVal, float sinVal);
-        void PlanetCollision(Snake* s);
+//        void PlanetCollision(Snake* s);
         sf::Vector2f GetPosition();
         float GetRadius();
 

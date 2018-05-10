@@ -1,5 +1,5 @@
 #include "Sun.h"
-#include "Snake.h"
+//#include "Snake.h"
 #include <cmath>
 
 Sun::Sun(sf::RenderWindow& window)
@@ -22,13 +22,13 @@ sf::Vector2f Sun::GetSunPosition()
     return m_sunPosition;
 }
 
-void Sun::Collision(Snake* s)
-{
-    if (hypot(m_sunPosition.x - s->GetPosition().x, m_sunPosition.y - s->GetPosition().y) <= (m_sun.getRadius() + s->m_snakeHead.getRadius()))
-    {
-        s->SetAlive(false);
-    }
-}
+//void Sun::Collision(Snake* s)
+//{
+//    if (hypot(m_sunPosition.x - s->GetPosition().x, m_sunPosition.y - s->GetPosition().y) <= (m_sun.getRadius() + s->m_snakeHead.getRadius()))
+//    {
+//        s->SetAlive(false);
+//    }
+//}
 
 float Sun::GetRadius()
 {

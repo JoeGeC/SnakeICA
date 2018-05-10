@@ -64,8 +64,6 @@
 		<Unit filename="AISnake.h" />
 		<Unit filename="Collectable.cpp" />
 		<Unit filename="Collectable.h" />
-		<Unit filename="Color.cpp" />
-		<Unit filename="Color.h" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.h" />
 		<Unit filename="Planet.cpp" />
