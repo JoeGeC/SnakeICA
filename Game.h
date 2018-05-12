@@ -61,6 +61,7 @@ class Game
         sf::Text m_menuText { "Main Menu", m_font, 50 };
         sf::Text m_spaceText { "Press  Space  to  Continue", m_font, 50 };
         sf::Text m_playerNoText { "Players", m_font, 40 };
+        sf::Text m_timeSelectText { "Time ", m_font, 40 };
         sf::Text m_playerColorText {"Player ", m_font, 40 };
         sf::Text m_highScoreText {"High Scores", m_font, 40 };
         sf::Text m_highScoresText { "Player1", m_font, 40 };

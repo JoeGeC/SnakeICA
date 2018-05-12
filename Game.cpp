@@ -124,7 +124,7 @@ void Game::GameOver()
     {
         m_gameOver = true;
     }
-    if (m_timeLeft <= 0)
+    if (m_timeLeft <= 0 && m_time > 0)
     {
         if(m_alive > 1)
         {
@@ -241,7 +241,7 @@ void Game::MainMenu()
             {
             //chooses which menu element to select
             case sf::Keyboard::Down:
-                if(m_menuSelection < 1)
+                if(m_menuSelection < 2)
                     m_menuSelection++;
                 break;
             case sf::Keyboard::Up:
@@ -250,8 +250,10 @@ void Game::MainMenu()
                 break;
             //chooses amount of players when on that option
             case sf::Keyboard::Left:
-                if(m_menuSelection == 0 && m_amountOfPlayers > 0)
+                if(m_menuSelection == 1 && m_amountOfPlayers > 0)
                     m_amountOfPlayers--;
+                if(m_menuSelection == 2 && m_time > 0)
+                    m_time -= 10;
                 //Color selector that currently doesn't work
 //                        else if(m_menuSelection == 1 && m_player1ColorSelector > 0)
 //                        {
@@ -262,8 +264,10 @@ void Game::MainMenu()
                 break;
             //chooses amount of players when on that option
             case sf::Keyboard::Right:
-                if(m_menuSelection == 0 && m_amountOfPlayers < 2)
+                if(m_menuSelection == 1 && m_amountOfPlayers < 2)
                     m_amountOfPlayers++;
+                if(m_menuSelection == 2 && m_time < 300)
+                    m_time += 10;
                         //Color selector that currently doesn't work
 //                        else if(m_menuSelection == 1 && m_player1ColorSelector <= 4)
 //                        {
@@ -272,7 +276,7 @@ void Game::MainMenu()
 //                        }
             //goes to high scores screen
             case sf::Keyboard::Return:
-                if(m_menuSelection == 1)
+                if(m_menuSelection == 0)
                     m_gameState = EGameState::eAtHighScores;
             default:
                 break;
@@ -286,13 +290,17 @@ void Game::MainMenu()
     switch(m_menuSelection)
     {
     case(0):
-        m_playerNoText.setColor(sf::Color(244, 241, 66));
-        m_highScoreText.setColor(sf::Color::White);
+        m_highScoreText.setColor(sf::Color(244, 241, 66));
+        m_playerNoText.setColor(sf::Color::White);
         break;
     case(1):
-        m_playerNoText.setColor(sf::Color::White);
-        m_highScoreText.setColor(sf::Color(244, 241, 66));
+        m_highScoreText.setColor(sf::Color::White);
+        m_playerNoText.setColor(sf::Color(244, 241, 66));
+        m_timeSelectText.setColor(sf::Color::White);
         break;
+    case(2):
+        m_playerNoText.setColor(sf::Color::White);
+        m_timeSelectText.setColor(sf::Color(244, 241, 66));
     default:
         break;
     }
@@ -314,16 +322,22 @@ void Game::Start()
         m_menuText.setPosition(m_screenWidth / 2 - 150, 50);
         m_window.draw(m_menuText);
 
-        m_playerNoText.setPosition(m_screenWidth / 2 - 200, 150);
+        m_highScoreText.setPosition(m_screenWidth / 2 - 200, 150);
+        m_window.draw(m_highScoreText);
+
+        m_playerNoText.setPosition(m_screenWidth / 2 - 200, 200);
         m_playerNoText.setString("Players          " + std::to_string(m_amountOfPlayers));
         m_window.draw(m_playerNoText);
+
+        m_timeSelectText.setPosition(m_screenWidth / 2 - 200, 250);
+        m_timeSelectText.setString("Time           " + std::to_string(m_time));
+        m_window.draw(m_timeSelectText);
 
         m_spaceText.setPosition(m_screenWidth / 2 - 300, m_screenHeight - 200);
         m_spaceText.setString("Press Space to Play");
         m_window.draw(m_spaceText);
 
-        m_highScoreText.setPosition(m_screenWidth / 2 - 200, 200);
-        m_window.draw(m_highScoreText);
+
 
         //draws each player and their colour to the screen
         for(int i = 0; i < 4; i++)
@@ -471,15 +485,25 @@ void Game::Run()
         //Draw score text
         DrawScoreText();
 
-        if (!m_gameOver)
+        if (!m_gameOver && m_time > 0)
         {
             m_timeLeft = m_time - m_timer.getElapsedTime().asSeconds();
-        }
+            m_timerText.setPosition(10, m_screenHeight - 200);
 
-        m_timerText.setPosition(10, m_screenHeight - 200);
-        m_timerText.setColor(sf::Color::Red);
-        m_timerText.setString(std::to_string(m_timeLeft));
-        m_window.draw(m_timerText);
+            if(m_timeLeft > 99)
+                m_timerText.setCharacterSize(80);
+            if(m_timeLeft > 9 && m_timeLeft < 100)
+                m_timerText.setCharacterSize(120);
+            else
+            {
+                m_timerText.setCharacterSize(260);
+                m_timerText.setPosition(10, m_screenHeight - 280);
+            }
+
+            m_timerText.setColor(sf::Color::Red);
+            m_timerText.setString(std::to_string(m_timeLeft));
+            m_window.draw(m_timerText);
+        }
 
         std::cout << std::to_string(m_timeLeft) << std::endl;
 
