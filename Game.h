@@ -9,20 +9,8 @@
 #include "Collectable.h"
 #include <string>
 #include "Sun.h"
-
-enum class EGameState
-{
-    eWaitingToStart,
-    eInGame,
-    eAtEndScreen,
-    eAtHighScores,
-};
-
-struct SColor
-{
-    sf::Color color;
-    std::string name;
-};
+#include "GameState.h"
+#include "SColor.h"
 
 struct highScore
 {
@@ -33,22 +21,17 @@ struct highScore
 class Game
 {
     public:
-        Game();
+        Game(int screenWidth, int screenHeight);
         ~Game();
 
         void Start();
+        int Run(sf::RenderWindow& window, SColor playerColors[], GameState gameState);
 
     protected:
 
     private:
-        EGameState m_gameState { EGameState::eWaitingToStart };
-
-        int m_screenWidth {1700};
-        int m_screenHeight {1000};
         int m_gameSpeed {50};
         int m_alive { 4 };
-
-        std::vector<highScore> highScores;
 
         bool m_gameOver { false };
         Snake* m_winner;
@@ -58,56 +41,29 @@ class Game
         sf::Text m_scoreText{ "Score ", m_font, 20 };
         sf::Text m_gameOverText{ "GAME OVER", m_font, 50 };
         sf::Text m_timerText { "Time Left: ", m_font, 120 };
-        sf::Text m_menuText { "Main Menu", m_font, 50 };
-        sf::Text m_spaceText { "Press  Space  to  Continue", m_font, 50 };
-        sf::Text m_playerNoText { "Players", m_font, 40 };
-        sf::Text m_playerColorText {"Player ", m_font, 40 };
-        sf::Text m_highScoreText {"High Scores", m_font, 40 };
-        sf::Text m_highScoresText { "Player1", m_font, 40 };
-        sf::Text m_newScoreText { "You got a new high score!", m_font, 40 };
 
         sf::Clock m_timer;
         int m_timeLeft { 90 };
 
-        void Run();
         void MainMenu();
-        int m_menuSelection = 0;
         int m_amountOfPlayers = 0;
 
-        SColor red = { sf::Color(239, 16, 53), "Red" };
-        SColor blue = { sf::Color(66, 134, 244), "Blue" };
-        SColor green = { sf::Color(49, 226, 108), "Green" };
-        SColor yellow = { sf::Color(225, 232, 41), "Yellow" };
-        SColor m_availableColors[4]{ red, blue, green, yellow };
-        SColor m_playerColors[4]{ red, blue, green, yellow };
-//        int m_player1ColorSelector = 0;
-//        sf::Color m_player1Color = sf::Color(239, 16, 53);
-//        sf::Color m_player2Color = sf::Color(66, 134, 244);
-//        sf::Color m_player3Color = sf::Color(49, 226, 108);
-//        sf::Color m_player4Color = sf::Color(225, 232, 41);
-
-        void DrawScoreText();
+        void DrawScoreText(sf::RenderWindow& window);
 
         std::vector<Snake*> m_snakes;
+        std::vector<Planet> m_planets;
         Collectable m_collectables[5];
 
         void SetCollectablePosition(Collectable& c);
 
-        void CollectableCollision(Sun& s);
+        void CollectableCollision(Sun& s,sf::RenderWindow& window);
         void WallCollision(Snake* s);
         void SnakeCollision();
 
         void GameOver();
-        void Reset();
-        bool m_hasReset { false };
 
-        void HighScores();
-        void LoadScores();
-        void SaveScores();
-
-        // Create an instance of the SFML RenderWindow type which represents the display
-        // and initialise its size and title text
-        sf::RenderWindow m_window{sf::VideoMode(m_screenWidth, m_screenHeight), "C++ Snake ICA : T7051015"};
+        int m_screenWidth;
+        int m_screenHeight;
 
         int m_borderSize { 30 };
 

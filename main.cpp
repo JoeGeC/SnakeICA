@@ -7,7 +7,7 @@
       Must be the download titled "codeblocks-16.01mingw-setup.exe"
 */
 
-#include"Game.h"
+#include"Menu.h"
 
 int main()
 {
@@ -15,10 +15,10 @@ int main()
     //Game loop
     while (true)
     {
-        //new game created each time
-        Game snakeGame;
+        Menu menu;
+        GameState gameState;
 
-        snakeGame.Start();
+        menu.OpenMenu(gameState);
     }
 
     return 0;

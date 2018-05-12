@@ -453,19 +453,19 @@
 	<SFML/Graphics.hpp>
 	"Snake.h"
 
-1525950328 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Game.cpp
+1526159889 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Game.cpp
 	"Game.h"
 	<string>
 	<sstream>
 	<iomanip>
 	<ctime>
-	<fstream>
 	"Sun.h"
 	"Planet.h"
 	"PlayerSnake.h"
 	"AISnake.h"
+	"GameState.h"
 
-1525946149 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Game.h
+1526159889 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Game.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	<cstdlib>
@@ -473,12 +473,14 @@
 	"Collectable.h"
 	<string>
 	"Sun.h"
+	"GameState.h"
+	"SColor.h"
 
-1525945341 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Sun.h
+1526151750 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Sun.h
 	<SFML/Graphics.hpp>
 	"SolarSystem.h"
 
-1525945342 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Planet.h
+1526153001 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Planet.h
 	"Sun.h"
 	"SolarSystem.h"
 	<SFML/Graphics.hpp>
@@ -486,10 +488,10 @@
 1525927975 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/PlayerSnake.h
 	"Snake.h"
 
-1525941488 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/main.cpp
-	"Game.h"
+1526158982 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/main.cpp
+	"Menu.h"
 
-1525945461 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Planet.cpp
+1526153001 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Planet.cpp
 	"Planet.h"
 	"Sun.h"
 
@@ -502,13 +504,33 @@
 	"Collectable.h"
 	<iostream>
 
-1525945461 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Sun.cpp
+1526151401 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Sun.cpp
 	"Sun.h"
 	<cmath>
 
-1525922106 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/SolarSystem.h
+1526151749 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/SolarSystem.h
 	<SFML/Graphics.hpp>
 
 1525922106 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/SolarSystem.cpp
 	"SolarSystem.h"
+
+1526160359 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Menu.h
+	<SFML/Graphics.hpp>
+	"Game.h"
+	"SColor.h"
+
+1526159234 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/GameState.h
+
+1526160206 /nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/SColor.h
+	<SFML/Graphics.hpp>
+
+1526159292 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/GameState.cpp
+	"GameState.h"
+
+1526160408 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/Menu.cpp
+	"Menu.h"
+	<fstream>
+
+1526160206 source:/nethome1/scm-studs/t7051015/CPPInGames/SnakeICA/SColor.cpp
+	"SColor.h"
 
