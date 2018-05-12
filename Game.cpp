@@ -369,9 +369,8 @@ void Game::Run()
     sf::Clock clock;
 
     Sun sun(m_window);
-
-    Planet planet1(750, 750, 20);
-    Planet planet2(500, 500, 15);
+    m_planets.push_back(Planet(750, 750, 20, 0.05, 0.05));
+    m_planets.push_back(Planet(500, 500, 20, 0.07, 0.07));
 
     //creates the right amount of player and ai snakes
     for(int i = 0; i < m_amountOfPlayers; i++)
@@ -434,8 +433,8 @@ void Game::Run()
                 s->CheckSelfCollision();
                 SnakeCollision();
                 WallCollision(s);
-                s->CheckPlanetCollision(planet1);
-                s->CheckPlanetCollision(planet2);
+                for(Planet& planet : m_planets)  //check each planet
+                    s->CheckPlanetCollision(planet);
                 s->CheckPlanetCollision(sun);
             }
 
@@ -449,8 +448,9 @@ void Game::Run()
         clock.restart();
 
         sun.DrawSun(m_window);
-        planet1.DrawPlanet(m_window, sun.GetPosition(), 0.01, 0.01);
-        planet2.DrawPlanet(m_window, sun.GetPosition(), 0.02, 0.02);
+
+        for(Planet& planet : m_planets) //draw each planet
+            planet.DrawPlanet(m_window, sun.GetPosition());
 
         //Draw north border
         m_window.draw(m_northBorder);
@@ -473,7 +473,7 @@ void Game::Run()
 
         if (!m_gameOver)
         {
-            m_timeLeft = 90 - m_timer.getElapsedTime().asSeconds();
+            m_timeLeft = m_time - m_timer.getElapsedTime().asSeconds();
         }
 
         m_timerText.setPosition(10, m_screenHeight - 200);

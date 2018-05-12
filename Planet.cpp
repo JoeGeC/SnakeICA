@@ -1,7 +1,7 @@
 #include "Planet.h"
 #include "Sun.h"
 
-Planet::Planet(int planetPosX, int planetPosY, float planetSize)
+Planet::Planet(int planetPosX, int planetPosY, float planetSize, float cosVal, float sinVal) : m_cosVal(cosVal), m_sinVal(sinVal)
 {
     m_position.x = planetPosX;
     m_position.y = planetPosY;
@@ -10,22 +10,14 @@ Planet::Planet(int planetPosX, int planetPosY, float planetSize)
 }
 
 
-void Planet::DrawPlanet(sf::RenderWindow& window, sf::Vector2f sunPosition, float cosVal, float sinVal)
+void Planet::DrawPlanet(sf::RenderWindow& window, sf::Vector2f sunPosition)
 {
     //sets position to rotate around sun
     sf::Vector2f temp = m_position - sunPosition;
-    m_position.x = temp.x * cos(cosVal) - temp.y * sin(sinVal);
-    m_position.y = temp.y * cos(cosVal) + temp.x * sin(sinVal);
+    m_position.x = temp.x * cos(m_cosVal) - temp.y * sin(m_sinVal);
+    m_position.y = temp.y * cos(m_cosVal) + temp.x * sin(m_sinVal);
     m_position += sunPosition;
     m_circle.setPosition(m_position);
     m_circle.setFillColor(sf::Color::Blue);
     window.draw(m_circle);
 }
-
-//void Planet::PlanetCollision(Snake* s)
-//{
-//    if (hypot(m_planetPosition.x - s->GetPosition().x, m_planetPosition.y - s->GetPosition().y) <= (m_planet.getRadius() + s->m_snakeHead.getRadius()))
-//    {
-//        s->SetAlive(false);
-//    }
-//}

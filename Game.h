@@ -68,6 +68,7 @@ class Game
 
         sf::Clock m_timer;
         int m_timeLeft { 90 };
+        int m_time { 90 };
 
         void Run();
         void MainMenu();
@@ -89,6 +90,7 @@ class Game
         void DrawScoreText();
 
         std::vector<Snake*> m_snakes;
+        std::vector<Planet> m_planets;
         Collectable m_collectables[5];
 
         void SetCollectablePosition(Collectable& c);
