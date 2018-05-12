@@ -1,5 +1,4 @@
 #include "Collectable.h"
-#include "Snake.h"
 
 Collectable::Collectable()
 {
@@ -10,20 +9,6 @@ void Collectable::DrawCollectable(sf::RenderWindow &window)
 {
     window.draw(m_colShape);
     m_colShape.setPosition(m_position);
-}
-
-int Collectable::Collision(Snake* s)
-{
-    if(m_position == s->GetPosition() && s->IsAlive())
-    {
-        m_active = false;
-        s->m_growAmount += m_growAmount;
-        return m_score + (s->m_snakeSegments.size() / 2);
-    }
-    else
-    {
-        return 0;
-    }
 }
 
 bool Collectable::IsActive()
@@ -55,4 +40,14 @@ void Collectable::SetPosition(float x, float y)
 void Collectable::SetGrowAmount(int i)
 {
     m_growAmount = i;
+}
+
+int Collectable::GetGrowAmount()
+{
+    return m_growAmount;
+}
+
+int Collectable::GetScore()
+{
+    return m_score;
 }

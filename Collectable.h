@@ -2,14 +2,12 @@
 #define COLLECTABLE_H
 
 #include <SFML/Graphics.hpp>
-#include "Snake.h"
 
 class Collectable
 {
     public:
         Collectable();
         void DrawCollectable(sf::RenderWindow &window);
-        int Collision(Snake* s);
         bool IsActive();
         void SetActive(bool active);
         void SetPosition(float x, float y);
@@ -17,6 +15,8 @@ class Collectable
         sf::Vector2f SetPosition();
         float GetRadius();
         void SetGrowAmount(int i);
+        int GetGrowAmount();
+        int GetScore();
 
     protected:
 

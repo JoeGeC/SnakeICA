@@ -10,7 +10,9 @@ class AISnake : public Snake
     public:
         AISnake(std::string name, sf::Color snakeColor);
         virtual ~AISnake();
-        void SetDirection() override;
+        void SetDirection(Collectable c) override;
+
+    private:
 };
 
 #endif // AISNAKE_H

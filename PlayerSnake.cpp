@@ -10,7 +10,7 @@ PlayerSnake::~PlayerSnake()
     //dtor
 }
 
-void PlayerSnake::SetDirection()
+void PlayerSnake::SetDirection(Collectable c)
 {
     if (m_name == "Player1")
     {

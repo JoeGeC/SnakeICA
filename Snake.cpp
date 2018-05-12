@@ -132,6 +132,20 @@ void Snake::CheckPlanetCollision(SolarSystem& ss)
     }
 }
 
+int Snake::CheckCollectableCollision(Collectable& c)
+{
+    if(m_position == c.GetPosition() && IsAlive())
+    {
+        c.SetActive(false);
+        m_growAmount += c.GetGrowAmount();
+        return c.GetScore() + (m_snakeSegments.size() / 2);
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 sf::Vector2f Snake::GetPosition() const
 {
     return m_position;

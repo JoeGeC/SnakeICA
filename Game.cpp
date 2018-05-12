@@ -78,7 +78,7 @@ void Game::CollectableCollision(Sun& s)
             c.DrawCollectable(m_window);
 
         for(Snake* s : m_snakes)
-            s->m_score += c.Collision(s); // returns a score
+            s->m_score += s->CheckCollectableCollision(c); // returns a score
     }
 }
 
@@ -433,7 +433,8 @@ void Game::Run()
         for(Snake* s : m_snakes)
         {
             //have each snake move
-            s->SetDirection();
+            for(Collectable& c : m_collectables)
+                s->SetDirection(m_collectables[0]);
             s->Move();
         }
 

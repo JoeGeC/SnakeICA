@@ -5,6 +5,7 @@
 #include <string>
 #include <list>
 #include "Planet.h"
+#include "Collectable.h"
 
 enum class EDirection
 {
@@ -19,7 +20,7 @@ class Snake
     public:
         Snake(std::string name, sf::Color snakeColor);
         virtual ~Snake();
-        virtual void SetDirection() = 0;
+        virtual void SetDirection(Collectable c) = 0;
         void DrawSnake(sf::RenderWindow &window);
         void Move();
         sf::Vector2f GetPosition() const;
@@ -30,6 +31,7 @@ class Snake
         bool CheckCollision(const Snake& other) const;
         void CheckSelfCollision();
         void CheckPlanetCollision(SolarSystem& ss);
+        int CheckCollectableCollision(Collectable& c);
         sf::Color GetSnakeColor() const;
         sf::CircleShape m_snakeHead{ 10.f };
         int m_growAmount { 0 };

@@ -9,7 +9,7 @@ class PlayerSnake : public Snake
     public:
         PlayerSnake(std::string name, sf::Color snakeColor);
         ~PlayerSnake();
-        void SetDirection() override;
+        void SetDirection(Collectable c) override;
 };
 
 #endif // PLAYERSNAKE_H
