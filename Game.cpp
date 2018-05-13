@@ -178,7 +178,8 @@ void Game::SaveScores()
         //finds high score spot
         if(m_winnerScore > highScores[i].score)
         {
-            highScore newScore = { "New", m_winnerScore };
+            NamePicker();
+            highScore newScore = { std::to_string(m_newScoreName[0]) + std::to_string(m_newScoreName[1]) + std::to_string(m_newScoreName[2]), m_winnerScore };
             highScores.insert(highScores.begin() + i, newScore);
             break;
         }
@@ -195,6 +196,85 @@ void Game::SaveScores()
     }
 
     scoresFile.close();
+}
+
+//TODO -- NOT WORKING
+void Game::NamePicker()
+{
+    bool nameEntered = false;
+    int letter = 0;
+    int letterPicker[3] = { 0, 0, 0 };
+    while (nameEntered == false)
+    {
+        m_window.clear();
+
+        m_newScoreText.setPosition(m_screenWidth / 2 - 100, m_screenHeight - 50);
+        m_inputYourNameText.setPosition(m_screenWidth / 2 - 100, m_screenHeight);
+        m_window.draw(m_newScoreText);
+        m_window.draw(m_inputYourNameText);
+
+        m_newScoreNameText.setString(std::to_string(m_newScoreName[0]) + "  " + std::to_string(m_newScoreName[1]) + "   " + std::to_string(m_newScoreName[2]));
+        m_window.draw(m_newScoreNameText);
+
+        sf::Event event;
+        while (m_window.pollEvent(event))
+        {
+            switch(event.type)
+            {
+            case sf::Event::KeyPressed:
+                switch(event.key.code)
+                {
+                //chooses letter
+                case sf::Keyboard::Down:
+                    if(letter = 0 && letterPicker[0] > 0) //changes first character
+                    {
+                        letterPicker[0] ++;
+                        m_newScoreName[0] = m_characters[letterPicker[0]];
+                    }
+                    else if(letter = 1 && letterPicker[1] > 0) //changes second character
+                    {
+                        letterPicker[1] ++;
+                        m_newScoreName[1] = m_characters[letterPicker[1]];
+                    }
+                    else if (letter = 2 && letterPicker[1] > 0) //changes third character
+                    {
+                        letterPicker[2] ++;
+                        m_newScoreName[2] = m_characters[letterPicker[2]];
+                    }
+                    break;
+                case sf::Keyboard::Up:
+                    if(letter = 0 && letterPicker[0] < 26) //changes first character
+                    {
+                        letterPicker[0] --;
+                        m_newScoreName[0] = m_characters[letterPicker[0]];
+                    }
+                    else if(letter = 1 && letterPicker[1] > 26) //changes second character
+                    {
+                        letterPicker[1] --;
+                        m_newScoreName[1] = m_characters[letterPicker[1]];
+                    }
+                    else if (letter = 2 && letterPicker[1] > 26) //changes third character
+                    {
+                        letterPicker[2] --;
+                        m_newScoreName[2] = m_characters[letterPicker[2]];
+                    }
+                    break;
+                case sf::Keyboard::Left:
+                    if (letter > 0) // switches which character you're changing
+                        letter--;
+                case sf::Keyboard::Right:
+                    if (letter < 2)
+                        letter++;
+                case sf::Keyboard::Return:
+                    nameEntered = true;
+                default:
+                    break;
+                }
+            default:
+                break;
+            }
+        }
+    }
 }
 
 void Game::HighScores()
@@ -268,7 +348,7 @@ void Game::MainMenu()
                     m_amountOfPlayers++;
                 if(m_menuSelection == 2 && m_time < 300)
                     m_time += 10;
-                        //Color selector that currently doesn't work
+            //Color selector that currently doesn't work
 //                        else if(m_menuSelection == 1 && m_player1ColorSelector <= 4)
 //                        {
 //                            m_player1ColorSelector++;

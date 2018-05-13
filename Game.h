@@ -66,6 +66,12 @@ class Game
         sf::Text m_highScoreText {"High Scores", m_font, 40 };
         sf::Text m_highScoresText { "Player1", m_font, 40 };
         sf::Text m_newScoreText { "You got a new high score!", m_font, 40 };
+        sf::Text m_inputYourNameText { "Input your name!", m_font, 40 };
+        sf::Text m_newScoreNameText { "A A A", m_font, 40 };
+
+        char m_characters[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+        char m_newScoreName[3] = { 'A', 'A', 'A' };
+        void NamePicker();
 
         sf::Clock m_timer;
         int m_timeLeft { 90 };
