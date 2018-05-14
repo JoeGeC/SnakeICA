@@ -61,6 +61,7 @@ class Game
         sf::Text m_menuText { "Main Menu", m_font, 50 };
         sf::Text m_spaceText { "Press  Space  to  Continue", m_font, 50 };
         sf::Text m_playerNoText { "Players", m_font, 40 };
+        sf::Text m_enemyNoText { "Enemies ", m_font, 40 };
         sf::Text m_timeSelectText { "Time ", m_font, 40 };
         sf::Text m_playerColorText {"Player ", m_font, 40 };
         sf::Text m_highScoreText {"High Scores", m_font, 40 };
@@ -68,6 +69,8 @@ class Game
         sf::Text m_newScoreText { "You got a new high score!", m_font, 40 };
         sf::Text m_inputYourNameText { "Input your name!", m_font, 40 };
         sf::Text m_newScoreNameText { "A A A", m_font, 40 };
+
+        std::vector<sf::Text> m_menuTexts;
 
         char m_characters[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
         char m_newScoreName[3] = { 'A', 'A', 'A' };
@@ -80,7 +83,8 @@ class Game
         void Run();
         void MainMenu();
         int m_menuSelection = 0;
-        int m_amountOfPlayers = 0;
+        int m_amountOfPlayers = 1;
+        int m_amountOfEnemies = 0;
 
         SColor red = { sf::Color(239, 16, 53), "Red" };
         SColor blue = { sf::Color(66, 134, 244), "Blue" };

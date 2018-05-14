@@ -20,7 +20,7 @@ class Snake
     public:
         Snake(std::string name, sf::Color snakeColor);
         virtual ~Snake();
-        virtual void SetDirection(Collectable c) = 0;
+        virtual void SetDirection(Collectable c, int screenWidth, int screenHeight) = 0;
         void DrawSnake(sf::RenderWindow &window);
         void Move();
         sf::Vector2f GetPosition() const;

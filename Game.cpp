@@ -48,7 +48,7 @@ void Game::SnakeCollision()
         {
             if(i != j)
             {
-                if (m_snakes[i]->CheckCollision(*m_snakes[j])) // check for collisions
+                if (m_snakes[i]->CheckCollision(*m_snakes[j])) // check for collisions with other snakes
                 {
                     m_snakes[i]->SetAlive(false);
                 }
@@ -107,23 +107,34 @@ void Game::DrawScoreText()
 
 void Game::GameOver()
 {
-    m_alive = 4; //counts how many snakes are still alive
-    for(Snake* s : m_snakes)
+    m_alive = m_amountOfPlayers + m_amountOfEnemies; //counts how many snakes are still alive
+    if (m_alive > 1)
     {
-        if(!s->IsAlive())
+        for(Snake* s : m_snakes)
         {
-            m_alive--;
+            if(!s->IsAlive())
+            {
+                m_alive--;
+            }
+            if (m_gameOver && s->IsAlive())
+            {
+                // if last snake alive, its the winner
+                m_winner = s;
+            }
         }
-        if (m_gameOver && s->IsAlive())
+        if (m_alive <= 1) //if one or no snakes alive, game over
         {
-            // if last snake alive, its the winner
-            m_winner = s;
+            m_gameOver = true;
         }
     }
-    if (m_alive <= 1) //if one or no snakes alive, game over
+    if(m_alive == 1)
     {
-        m_gameOver = true;
+        if (!m_snakes[0]->IsAlive())
+        {
+            m_gameOver = true;
+        }
     }
+
     if (m_timeLeft <= 0 && m_time > 0)
     {
         if(m_alive > 1)
@@ -138,6 +149,13 @@ void Game::GameOver()
                 }
             }
         }
+
+        if(m_amountOfPlayers + m_amountOfEnemies == 1)
+        {
+            m_winner = m_snakes[0];
+            m_winnerScore = m_snakes[0]->m_score;
+        }
+
         m_gameOver = true;
     }
 }
@@ -321,7 +339,7 @@ void Game::MainMenu()
             {
             //chooses which menu element to select
             case sf::Keyboard::Down:
-                if(m_menuSelection < 2)
+                if(m_menuSelection < 3)
                     m_menuSelection++;
                 break;
             case sf::Keyboard::Up:
@@ -332,7 +350,9 @@ void Game::MainMenu()
             case sf::Keyboard::Left:
                 if(m_menuSelection == 1 && m_amountOfPlayers > 0)
                     m_amountOfPlayers--;
-                if(m_menuSelection == 2 && m_time > 0)
+                if(m_menuSelection == 2 && m_amountOfEnemies > 0)
+                    m_amountOfEnemies--;
+                if(m_menuSelection == 3 && m_time > 0)
                     m_time -= 10;
                 //Color selector that currently doesn't work
 //                        else if(m_menuSelection == 1 && m_player1ColorSelector > 0)
@@ -344,9 +364,11 @@ void Game::MainMenu()
                 break;
             //chooses amount of players when on that option
             case sf::Keyboard::Right:
-                if(m_menuSelection == 1 && m_amountOfPlayers < 2)
+                if(m_menuSelection == 1 && m_amountOfPlayers < 2 && m_amountOfPlayers + m_amountOfEnemies < 4)
                     m_amountOfPlayers++;
-                if(m_menuSelection == 2 && m_time < 300)
+                if(m_menuSelection == 2 && m_amountOfPlayers + m_amountOfEnemies < 4)
+                    m_amountOfEnemies++;
+                if(m_menuSelection == 3 && m_time < 300)
                     m_time += 10;
             //Color selector that currently doesn't work
 //                        else if(m_menuSelection == 1 && m_player1ColorSelector <= 4)
@@ -376,11 +398,17 @@ void Game::MainMenu()
     case(1):
         m_highScoreText.setColor(sf::Color::White);
         m_playerNoText.setColor(sf::Color(244, 241, 66));
-        m_timeSelectText.setColor(sf::Color::White);
+        m_enemyNoText.setColor(sf::Color::White);
         break;
     case(2):
         m_playerNoText.setColor(sf::Color::White);
+        m_enemyNoText.setColor(sf::Color(244, 241, 66));
+        m_timeSelectText.setColor(sf::Color::White);
+        break;
+    case(3):
+        m_enemyNoText.setColor(sf::Color::White);
         m_timeSelectText.setColor(sf::Color(244, 241, 66));
+        break;
     default:
         break;
     }
@@ -409,21 +437,26 @@ void Game::Start()
         m_playerNoText.setString("Players          " + std::to_string(m_amountOfPlayers));
         m_window.draw(m_playerNoText);
 
-        m_timeSelectText.setPosition(m_screenWidth / 2 - 200, 250);
+        m_enemyNoText.setPosition(m_screenWidth / 2 - 200, 250);
+        m_enemyNoText.setString("Enemies           " + std::to_string(m_amountOfEnemies));
+        m_window.draw(m_enemyNoText);
+
+        m_timeSelectText.setPosition(m_screenWidth / 2 - 200, 300);
         m_timeSelectText.setString("Time           " + std::to_string(m_time));
         m_window.draw(m_timeSelectText);
 
-        m_spaceText.setPosition(m_screenWidth / 2 - 300, m_screenHeight - 200);
-        m_spaceText.setString("Press Space to Play");
-        m_window.draw(m_spaceText);
-
-
+        if(m_amountOfPlayers + m_amountOfEnemies > 0)
+        {
+            m_spaceText.setPosition(m_screenWidth / 2 - 300, m_screenHeight - 200);
+            m_spaceText.setString("Press Space to Play");
+            m_window.draw(m_spaceText);
+        }
 
         //draws each player and their colour to the screen
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < m_amountOfPlayers + m_amountOfEnemies; i++)
         {
             m_playerColors[i] = m_availableColors[i];
-            m_playerColorText.setPosition(m_screenWidth / 2 - 200, 300 + (50 * (i + 1)));
+            m_playerColorText.setPosition(m_screenWidth / 2 - 200, 400 + (50 * (i + 1)));
             m_playerColorText.setString("Player" + std::to_string(i + 1) + "    " + m_playerColors[i].name);
             m_playerColorText.setColor(m_playerColors[i].color);
             m_window.draw(m_playerColorText);
@@ -471,7 +504,7 @@ void Game::Run()
     {
         m_snakes.push_back(new PlayerSnake("Player" + std::to_string(i + 1), m_playerColors[i].color));
     }
-    for(int i = 0; i < 4 - m_amountOfPlayers; i++)
+    for(int i = 0; i < m_amountOfEnemies; i++)
     {
         m_snakes.push_back(new AISnake("Player" + std::to_string(i + 1 + m_amountOfPlayers), m_playerColors[i + m_amountOfPlayers].color));
     }
@@ -514,7 +547,7 @@ void Game::Run()
         {
             //have each snake move
             for(Collectable& c : m_collectables)
-                s->SetDirection(m_collectables[0]);
+                s->SetDirection(c, m_screenWidth, m_screenHeight);
             s->Move();
         }
 
@@ -592,8 +625,12 @@ void Game::Run()
 
         if(m_gameOver)
         {
+
             m_gameOverText.setPosition((m_screenWidth / 2) - 240, (m_screenHeight / 2) - 200);
-            m_gameOverText.setString("                         GAME OVER \n            Winner  " + m_winner->GetSnakeName() + "! \n \n \n \n \n Press Enter to Return");
+            if(m_amountOfPlayers + m_amountOfEnemies > 1)
+                m_gameOverText.setString("                         GAME OVER \n            Winner  " + m_winner->GetSnakeName() + "! \n \n \n \n \n Press Enter to Return");
+            else
+                m_gameOverText.setString("                         GAME OVER \n           Final Score  " + std::to_string(m_winner->m_score) + "! \n \n \n \n \n Press Enter to Return");
             m_window.draw(m_gameOverText);
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
