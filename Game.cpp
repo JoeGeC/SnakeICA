@@ -339,7 +339,7 @@ void Game::MainMenu()
             {
             //chooses which menu element to select
             case sf::Keyboard::Down:
-                if(m_menuSelection < 3)
+                if(m_menuSelection < 4)
                     m_menuSelection++;
                 break;
             case sf::Keyboard::Up:
@@ -354,6 +354,8 @@ void Game::MainMenu()
                     m_amountOfEnemies--;
                 if(m_menuSelection == 3 && m_time > 0)
                     m_time -= 10;
+                if(m_menuSelection == 4 && m_amountOfPlanets > 0)
+                    m_amountOfPlanets--;
                 //Color selector that currently doesn't work
 //                        else if(m_menuSelection == 1 && m_player1ColorSelector > 0)
 //                        {
@@ -370,6 +372,8 @@ void Game::MainMenu()
                     m_amountOfEnemies++;
                 if(m_menuSelection == 3 && m_time < 300)
                     m_time += 10;
+                if(m_menuSelection == 4 && m_amountOfPlanets < 3)
+                    m_amountOfPlanets++;
             //Color selector that currently doesn't work
 //                        else if(m_menuSelection == 1 && m_player1ColorSelector <= 4)
 //                        {
@@ -408,6 +412,11 @@ void Game::MainMenu()
     case(3):
         m_enemyNoText.setColor(sf::Color::White);
         m_timeSelectText.setColor(sf::Color(244, 241, 66));
+        m_planetNoText.setColor(sf::Color::White);
+        break;
+    case(4):
+        m_timeSelectText.setColor(sf::Color::White);
+        m_planetNoText.setColor(sf::Color(244, 241, 66));
         break;
     default:
         break;
@@ -445,6 +454,10 @@ void Game::Start()
         m_timeSelectText.setString("Time           " + std::to_string(m_time));
         m_window.draw(m_timeSelectText);
 
+        m_planetNoText.setPosition(m_screenWidth / 2 - 200, 350);
+        m_planetNoText.setString("Planets       " + std::to_string(m_amountOfPlanets));
+        m_window.draw(m_planetNoText);
+
         if(m_amountOfPlayers + m_amountOfEnemies > 0)
         {
             m_spaceText.setPosition(m_screenWidth / 2 - 300, m_screenHeight - 200);
@@ -471,7 +484,7 @@ void Game::Start()
         }
 
         //goes to game
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && m_amountOfPlayers + m_amountOfEnemies > 0)
         {
             Run();
             if(m_winnerScore > 0) //saves the need to run SaveScores if there's no scores to be saved
@@ -496,8 +509,10 @@ void Game::Run()
     sf::Clock clock;
 
     Sun sun(m_window);
-    m_planets.push_back(Planet(750, 750, 20, 0.05, 0.05));
-    m_planets.push_back(Planet(500, 500, 20, 0.07, 0.07));
+    for(int i = 0; i < m_amountOfPlanets - 1; i++)
+    {
+        m_planets.push_back(Planet(500 + (i * 250), 500 + (i * 250), 20, 0.07 - (i * 0.02), 0.07 - (i * 0.02)));
+    }
 
     //creates the right amount of player and ai snakes
     for(int i = 0; i < m_amountOfPlayers; i++)
@@ -563,7 +578,8 @@ void Game::Run()
                 WallCollision(s);
                 for(Planet& planet : m_planets)  //check each planet
                     s->CheckPlanetCollision(planet);
-                s->CheckPlanetCollision(sun);
+                if(m_amountOfPlanets > 0)
+                    s->CheckPlanetCollision(sun);
             }
 
             CollectableCollision(sun);
@@ -575,7 +591,8 @@ void Game::Run()
         while (clock.getElapsedTime().asMilliseconds() < m_gameSpeed);
         clock.restart();
 
-        sun.DrawSun(m_window);
+        if(m_amountOfPlanets > 0)
+            sun.DrawSun(m_window);
 
         for(Planet& planet : m_planets) //draw each planet
             planet.DrawPlanet(m_window, sun.GetPosition());

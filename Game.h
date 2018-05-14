@@ -63,6 +63,7 @@ class Game
         sf::Text m_playerNoText { "Players", m_font, 40 };
         sf::Text m_enemyNoText { "Enemies ", m_font, 40 };
         sf::Text m_timeSelectText { "Time ", m_font, 40 };
+        sf::Text m_planetNoText { "Planets ", m_font, 40 };
         sf::Text m_playerColorText {"Player ", m_font, 40 };
         sf::Text m_highScoreText {"High Scores", m_font, 40 };
         sf::Text m_highScoresText { "Player1", m_font, 40 };
@@ -85,6 +86,7 @@ class Game
         int m_menuSelection = 0;
         int m_amountOfPlayers = 1;
         int m_amountOfEnemies = 0;
+        int m_amountOfPlanets = 0;
 
         SColor red = { sf::Color(239, 16, 53), "Red" };
         SColor blue = { sf::Color(66, 134, 244), "Blue" };

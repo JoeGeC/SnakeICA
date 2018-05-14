@@ -10,7 +10,7 @@ class SolarSystem
         sf::Vector2f GetPosition();
 
     protected:
-        float m_circleSize = 50.f;
+        float m_circleSize = 45.f;
         sf::CircleShape m_circle{ m_circleSize };
         sf::Vector2f m_position;
 
