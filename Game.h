@@ -73,8 +73,14 @@ class Game
 
         std::vector<sf::Text> m_menuTexts;
 
-        char m_characters[26] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-        char m_newScoreName[3] = { 'A', 'A', 'A' };
+        std::string m_characters[26] = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+        std::string m_newScoreName[3] = { "A", "A", "A" };
+        bool m_nameEntered = false;
+        int m_letter = 0;
+        int m_letterPicker[3] = { 0, 0, 0 };
+//        int m_letterPicker1 { 0 };
+//        int m_letterPicker2 { 1 };
+//        int m_letterPicker3 { 2 };
         void NamePicker();
 
         sf::Clock m_timer;
@@ -94,11 +100,6 @@ class Game
         SColor yellow = { sf::Color(225, 232, 41), "Yellow" };
         SColor m_availableColors[4]{ red, blue, green, yellow };
         SColor m_playerColors[4]{ red, blue, green, yellow };
-//        int m_player1ColorSelector = 0;
-//        sf::Color m_player1Color = sf::Color(239, 16, 53);
-//        sf::Color m_player2Color = sf::Color(66, 134, 244);
-//        sf::Color m_player3Color = sf::Color(49, 226, 108);
-//        sf::Color m_player4Color = sf::Color(225, 232, 41);
 
         void DrawScoreText();
 

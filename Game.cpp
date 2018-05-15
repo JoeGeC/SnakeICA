@@ -197,7 +197,7 @@ void Game::SaveScores()
         if(m_winnerScore > highScores[i].score)
         {
             NamePicker();
-            highScore newScore = { std::to_string(m_newScoreName[0]) + std::to_string(m_newScoreName[1]) + std::to_string(m_newScoreName[2]), m_winnerScore };
+            highScore newScore = { " " + m_newScoreName[0] + m_newScoreName[1] + m_newScoreName[2], m_winnerScore };
             highScores.insert(highScores.begin() + i, newScore);
             break;
         }
@@ -216,24 +216,10 @@ void Game::SaveScores()
     scoresFile.close();
 }
 
-//TODO -- NOT WORKING
 void Game::NamePicker()
 {
-    bool nameEntered = false;
-    int letter = 0;
-    int letterPicker[3] = { 0, 0, 0 };
-    while (nameEntered == false)
+    while(m_nameEntered == false)
     {
-        m_window.clear();
-
-        m_newScoreText.setPosition(m_screenWidth / 2 - 100, m_screenHeight - 50);
-        m_inputYourNameText.setPosition(m_screenWidth / 2 - 100, m_screenHeight);
-        m_window.draw(m_newScoreText);
-        m_window.draw(m_inputYourNameText);
-
-        m_newScoreNameText.setString(std::to_string(m_newScoreName[0]) + "  " + std::to_string(m_newScoreName[1]) + "   " + std::to_string(m_newScoreName[2]));
-        m_window.draw(m_newScoreNameText);
-
         sf::Event event;
         while (m_window.pollEvent(event))
         {
@@ -244,47 +230,55 @@ void Game::NamePicker()
                 {
                 //chooses letter
                 case sf::Keyboard::Down:
-                    if(letter = 0 && letterPicker[0] > 0) //changes first character
+                    if(m_letter == 0 && m_letterPicker[0] < 25) //changes first character
                     {
-                        letterPicker[0] ++;
-                        m_newScoreName[0] = m_characters[letterPicker[0]];
+                        m_letterPicker[0]++;
+                        m_newScoreName[0] = m_characters[m_letterPicker[0]];
                     }
-                    else if(letter = 1 && letterPicker[1] > 0) //changes second character
+                    else if(m_letter == 1 && m_letterPicker[1] < 25) //changes second character
                     {
-                        letterPicker[1] ++;
-                        m_newScoreName[1] = m_characters[letterPicker[1]];
+                        m_letterPicker[1]++;
+                        m_newScoreName[1] = m_characters[m_letterPicker[1]];
                     }
-                    else if (letter = 2 && letterPicker[1] > 0) //changes third character
+                    else if (m_letter == 2 && m_letterPicker[2] < 25) //changes third character
                     {
-                        letterPicker[2] ++;
-                        m_newScoreName[2] = m_characters[letterPicker[2]];
+                        m_letterPicker[2]++;
+                        m_newScoreName[2] = m_characters[m_letterPicker[2]];
                     }
                     break;
                 case sf::Keyboard::Up:
-                    if(letter = 0 && letterPicker[0] < 26) //changes first character
+                    if(m_letter == 0 && m_letterPicker[0] > 0) //changes first character
                     {
-                        letterPicker[0] --;
-                        m_newScoreName[0] = m_characters[letterPicker[0]];
+                        m_letterPicker[0]--;
+                        m_newScoreName[0] = m_characters[m_letterPicker[0]];
                     }
-                    else if(letter = 1 && letterPicker[1] > 26) //changes second character
+                    else if(m_letter == 1 && m_letterPicker[1] > 0) //changes second character
                     {
-                        letterPicker[1] --;
-                        m_newScoreName[1] = m_characters[letterPicker[1]];
+                        m_letterPicker[1]--;
+                        m_newScoreName[1] = m_characters[m_letterPicker[1]];
                     }
-                    else if (letter = 2 && letterPicker[1] > 26) //changes third character
+                    else if (m_letter == 2 && m_letterPicker[2] > 0) //changes third character
                     {
-                        letterPicker[2] --;
-                        m_newScoreName[2] = m_characters[letterPicker[2]];
+                        m_letterPicker[2]--;
+                        m_newScoreName[2] = m_characters[m_letterPicker[2]];
                     }
                     break;
                 case sf::Keyboard::Left:
-                    if (letter > 0) // switches which character you're changing
-                        letter--;
+                    if (m_letter > 0) // switches which character you're changing
+                    {
+                        m_letter--;
+                    }
+
+                    break;
                 case sf::Keyboard::Right:
-                    if (letter < 2)
-                        letter++;
+                    if (m_letter < 2)
+                    {
+                        m_letter++;
+                    }
+                    break;
                 case sf::Keyboard::Return:
-                    nameEntered = true;
+                    m_nameEntered = true; //Enters name
+                    break;
                 default:
                     break;
                 }
@@ -292,6 +286,20 @@ void Game::NamePicker()
                 break;
             }
         }
+
+        m_window.clear();
+
+        m_newScoreText.setPosition(m_screenWidth / 2 - 200, 200);
+        m_inputYourNameText.setPosition(m_screenWidth / 2 - 150, m_screenHeight / 2 - 100);
+        m_window.draw(m_newScoreText);
+        m_window.draw(m_inputYourNameText);
+
+        m_newScoreNameText.setString(m_newScoreName[0] + "   " + m_newScoreName[1] + "   " + m_newScoreName[2]);
+        m_newScoreNameText.setPosition(m_screenWidth / 2 - 50, m_screenHeight / 2);
+        m_window.draw(m_newScoreNameText);
+
+
+        m_window.display();
     }
 }
 
@@ -346,40 +354,27 @@ void Game::MainMenu()
                 if(m_menuSelection > 0)
                     m_menuSelection--;
                 break;
-            //chooses amount of players when on that option
-            case sf::Keyboard::Left:
-                if(m_menuSelection == 1 && m_amountOfPlayers > 0)
-                    m_amountOfPlayers--;
-                if(m_menuSelection == 2 && m_amountOfEnemies > 0)
-                    m_amountOfEnemies--;
-                if(m_menuSelection == 3 && m_time > 0)
-                    m_time -= 10;
-                if(m_menuSelection == 4 && m_amountOfPlanets > 0)
-                    m_amountOfPlanets--;
-                //Color selector that currently doesn't work
-//                        else if(m_menuSelection == 1 && m_player1ColorSelector > 0)
-//                        {
-//                            m_player1ColorSelector--;
-//                            m_playerColors[0] = m_availableColors[m_player1ColorSelector];
-//                        }
 
+            case sf::Keyboard::Left:
+                if(m_menuSelection == 1 && m_amountOfPlayers > 0)//chooses amount of players when on that option
+                    m_amountOfPlayers--;
+                if(m_menuSelection == 2 && m_amountOfEnemies > 0) //choose amount of enemies
+                    m_amountOfEnemies--;
+                if(m_menuSelection == 3 && m_time > 0) // chooses amount of time
+                    m_time -= 10;
+                if(m_menuSelection == 4 && m_amountOfPlanets > 0) //chooses amount of planets
+                    m_amountOfPlanets--;
                 break;
-            //chooses amount of players when on that option
+
             case sf::Keyboard::Right:
-                if(m_menuSelection == 1 && m_amountOfPlayers < 2 && m_amountOfPlayers + m_amountOfEnemies < 4)
+                if(m_menuSelection == 1 && m_amountOfPlayers < 2 && m_amountOfPlayers + m_amountOfEnemies < 4)//chooses amount of players when on that option
                     m_amountOfPlayers++;
-                if(m_menuSelection == 2 && m_amountOfPlayers + m_amountOfEnemies < 4)
+                if(m_menuSelection == 2 && m_amountOfPlayers + m_amountOfEnemies < 4) // chooses amount of enemies
                     m_amountOfEnemies++;
-                if(m_menuSelection == 3 && m_time < 300)
+                if(m_menuSelection == 3 && m_time < 300) //chooses time
                     m_time += 10;
-                if(m_menuSelection == 4 && m_amountOfPlanets < 3)
+                if(m_menuSelection == 4 && m_amountOfPlanets < 3) //chooses amount of planets
                     m_amountOfPlanets++;
-            //Color selector that currently doesn't work
-//                        else if(m_menuSelection == 1 && m_player1ColorSelector <= 4)
-//                        {
-//                            m_player1ColorSelector++;
-//                            m_playerColors[0] = m_availableColors[m_player1ColorSelector];
-//                        }
             //goes to high scores screen
             case sf::Keyboard::Return:
                 if(m_menuSelection == 0)
@@ -645,12 +640,12 @@ void Game::Run()
 
             m_gameOverText.setPosition((m_screenWidth / 2) - 240, (m_screenHeight / 2) - 200);
             if(m_amountOfPlayers + m_amountOfEnemies > 1)
-                m_gameOverText.setString("                         GAME OVER \n            Winner  " + m_winner->GetSnakeName() + "! \n \n \n \n \n Press Enter to Return");
+                m_gameOverText.setString("                         GAME OVER \n            Winner  " + m_winner->GetSnakeName() + "! \n \n \n \n \n Press Space to Return");
             else
-                m_gameOverText.setString("                         GAME OVER \n           Final Score  " + std::to_string(m_winner->m_score) + "! \n \n \n \n \n Press Enter to Return");
+                m_gameOverText.setString("                         GAME OVER \n           Final Score  " + std::to_string(m_winner->m_score) + "! \n \n \n \n \n Press Space to Return");
             m_window.draw(m_gameOverText);
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
                 for(std::size_t i = 0; i < m_snakes.size(); i++)
                 {
