@@ -70,6 +70,7 @@ class Game
         sf::Text m_newScoreText { "You got a new high score!", m_font, 40 };
         sf::Text m_inputYourNameText { "Input your name!", m_font, 40 };
         sf::Text m_newScoreNameText { "A A A", m_font, 40 };
+        sf::Text m_multiplierText { "Multiplier ", m_font, 40 };
 
         std::vector<sf::Text> m_menuTexts;
 
@@ -78,9 +79,6 @@ class Game
         bool m_nameEntered = false;
         int m_letter = 0;
         int m_letterPicker[3] = { 0, 0, 0 };
-//        int m_letterPicker1 { 0 };
-//        int m_letterPicker2 { 1 };
-//        int m_letterPicker3 { 2 };
         void NamePicker();
 
         sf::Clock m_timer;
@@ -89,10 +87,10 @@ class Game
 
         void Run();
         void MainMenu();
-        int m_menuSelection = 0;
-        int m_amountOfPlayers = 1;
-        int m_amountOfEnemies = 0;
-        int m_amountOfPlanets = 0;
+        int m_menuSelection { 0 };
+        int m_amountOfPlayers { 1 };
+        int m_amountOfEnemies { 0 };
+        int m_amountOfPlanets { 0 };
 
         SColor red = { sf::Color(239, 16, 53), "Red" };
         SColor blue = { sf::Color(66, 134, 244), "Blue" };

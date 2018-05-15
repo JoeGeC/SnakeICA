@@ -138,7 +138,7 @@ int Snake::CheckCollectableCollision(Collectable& c)
     {
         c.SetActive(false);
         m_growAmount += c.GetGrowAmount();
-        return c.GetScore() + (m_snakeSegments.size() / 2);
+        return c.GetScore() + m_snakeSegments.size();
     }
     else
     {
